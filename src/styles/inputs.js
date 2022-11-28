@@ -1,0 +1,10 @@
+import styled, { css } from "styled-components";
+import { BaseInput } from "./components/BaseInput";
+
+export const StyledInput = styled(BaseInput)`
+  padding: 0 1.6rem;
+  font-size: 1.625rem;
+  border-radius: 0.4rem;
+  border-color: 0.122rem solid var(--color-grey-2);
+  height: 4.8rem;
+`;

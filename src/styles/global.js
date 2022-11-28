@@ -1,6 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap");
+
   :root {
     --color-background: #0b0b0b;
     --color-primary: #FF577F;
@@ -47,7 +49,7 @@ export default createGlobalStyle`
   }
 
   body, input, button, textarea {
-    font-family: 'Roboto';
+    font-family: 'Inter', sans-serif;
     font-size: 1.6rem;
   }
 
