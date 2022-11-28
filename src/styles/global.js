@@ -3,14 +3,19 @@ import { createGlobalStyle } from "styled-components";
 export default createGlobalStyle`
   :root {
     --color-background: #0b0b0b;
-    --color-primary: #F2A30B;
-    --color-secondary: #0C2FDF;
-    --color-tertiary: #FFE182;
+    --color-primary: #FF577F;
+    --color-primary-focus: #FF427F;
+    --color-primary-disable: #59323F;
+    --color-grey-4: #121214;
+    --color-grey-3: #212529;
+    --color-grey-2: #343B41;
+    --color-grey-1: #868E96;
+    --color-grey-0: #F8F9FA;
     --color-text: #FFF;
     --color-red: #B4423E; 
     --color-success: #7CC39C;
     --color-warning: #FBEA85;
-    --color-error: #EA524F;
+    --color-negative: #EA524F;
 
     font-size: 60%;   
   }
