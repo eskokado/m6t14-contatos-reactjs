@@ -7,7 +7,7 @@ export default createGlobalStyle`
     --color-background: #0b0b0b;
     --color-primary: #FF577F;
     --color-primary-50: #FF427F;
-    --color-primary-negative: #59323F;
+    --color-primary-disable: #59323F;
     --color-grey-4: #121214;
     --color-grey-3: #212529;
     --color-grey-2: #343B41;

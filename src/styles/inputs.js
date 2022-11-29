@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { BaseInput } from "./components/BaseInput";
 
 export const StyledInput = styled(BaseInput)`

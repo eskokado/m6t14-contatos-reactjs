@@ -12,71 +12,68 @@ export const StyledButton = styled.button`
     filter: brightness(1.2);
   }
 
-  ${({ buttonSize }) => {
-    switch (buttonSize) {
-      case "default":
-        return css`
-          padding: 0 2.2rem;
-          height: 4.8rem;
-        `;
-      case "small":
-        return css`
-          padding: 0 1.6rem;
-          height: 3.2rem;
-        `;
-      case "icon":
-        return css`
-          height: 3.2rem;
-        `;
+  ${(props) => {
+    if (props.default) {
+      return css`
+        padding: 0 2.2rem;
+        height: 4.8rem;
+      `;
+    } else if (props.small) {
+      return css`
+        padding: 0 1.6rem;
+        height: 3.2rem;
+      `;
+    } else if (props.icon) {
+      return css`
+        height: 3.2rem;
+      `;
     }
   }}
 
-  ${({ buttonStyle }) => {
-    switch (buttonStyle) {
-      case "primary":
-        return css`
+  ${(props) => {
+    if (props.primary) {
+      return css`
+        background: var(--color-primary);
+        color: var(--color-text);
+        &:hover {
+          background: var(--color-primary-50);
+          color: var(--color-text);
+        }
+      `;
+    } else if (props.primary50) {
+      return css`
+        background: var(--color-primary-50);
+        color: var(--color-text);
+        &:hover {
           background: var(--color-primary);
           color: var(--color-text);
-          &:hover {
-            background: var(--color-primary-50);
-            color: var(--color-text);
-          }
-        `;
-      case "primary50":
-        return css`
-          background: var(--color-primary-50);
-          color: var(--color-text);
-          &:hover {
-            background: var(--color-primary);
-            color: var(--color-text);
-          }
-        `;
-      case "primaryNegative":
-        return css`
-          background: var(--color-primary-50);
-          color: var(--color-text);
-        `;
+        }
+      `;
+    } else if (props.primaryDisable) {
+      return css`
+        background: var(--color-primary-disable);
+        color: var(--color-text);
+      `;
+    } else if (props.disabled) {
+      return css`
+        background: var(--color-grey-1);
+        color: var(--color-text);
 
-      case "disabled":
-        return css`
-          background: var(--color-grey-1);
+        &:hover {
+          background: var(--color-grey-2);
           color: var(--color-text);
+        }
+      `;
+    } else if (props.grey) {
+      return css`
+        background: var(--color-grey-3);
+        color: var(--color-text);
 
-          &:hover {
-            background: var(--color-grey-2);
-            color: var(--color-text);
-          }
-        `;
-      case "grey":
-        return css`
-          background: var(--color-grey-3);
+        &:hover {
+          background: var(--color-grey-2);
           color: var(--color-text);
-
-          &:hover {
-            background: var(--color-grey-2);
-            color: var(--color-text);
-          }
-        `;
+        }
+      `;
     }
   }}
 `;
