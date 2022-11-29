@@ -78,6 +78,10 @@ export const Typography = styled(BaseFont)`
       return css`
         color: var(--color-negative);
       `;
+    else if (props.red)
+      return css`
+        color: var(--color-red);
+      `;
     else
       return css`
         color: #ffffff;
