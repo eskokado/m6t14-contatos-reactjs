@@ -1,16 +1,26 @@
 /* eslint-disable default-case */
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-export const StyledButton = styled.button`
+export const Button = styled(Link)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
   border-radius: 0.4rem;
+  text-decoration: none;
 
   &:hover {
     filter: brightness(1.2);
   }
+
+  ${(props) => {
+    if (props.max) {
+      return css`
+        width: 100%;
+      `;
+    }
+  }}
 
   ${(props) => {
     if (props.default) {
