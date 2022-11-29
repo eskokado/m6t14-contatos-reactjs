@@ -99,10 +99,15 @@ export const Typography = styled(BaseFont)`
         font-size: 1.4rem;
         line-height: 2.4rem;
       `;
-    } else {
+    } else if (props.headline) {
       return css`
         font-size: 1.2rem;
         line-height: 1.8rem;
+      `;
+    } else if (props.helper) {
+      return css`
+        font-size: 1rem;
+        line-height: 1.6rem;
       `;
     }
   }}
