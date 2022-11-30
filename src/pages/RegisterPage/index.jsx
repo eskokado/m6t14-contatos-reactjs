@@ -1,5 +1,5 @@
 import { CardForm } from "../../components/CardForm";
-import { HeaderRegister } from "../../components/HeaderRegister";
+import { Navbar } from "../../components/Navbar";
 import { ButtonLink } from "../../styles/buttons";
 import { GroupInput } from "../../styles/components/GroupInput";
 import { GroupInputPassword } from "../../styles/components/GroupInputPassword";
@@ -9,7 +9,7 @@ import { StyledRegisterPage } from "./styles";
 export const RegisterPage = () => {
   return (
     <StyledRegisterPage>
-      <HeaderRegister />
+      <Navbar labelButton="Voltar" />
       <CardForm>
         <Typography fonttype="title2" fontcolor="grey0" fontweight="semibody">
           Crie sua conta
@@ -41,7 +41,7 @@ export const RegisterPage = () => {
         <GroupInput label="Contato" placeholder="Opção de contato" />
         <ButtonLink
           buttonstyle="default"
-          buttoncolor="primary"
+          buttoncolor="primaryDisable"
           buttonwidth="max"
         >
           Cadastrar
