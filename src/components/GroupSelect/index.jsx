@@ -1,8 +1,9 @@
-import { InputPassword } from "../InputPassword";
+import { StyledInput } from "../../styles/inputs";
 import { Typography } from "../../styles/typography";
-import { StyledGroupInputPassword } from "./styles";
+import { Select } from "../Select";
+import { StyledGroupInput } from "./styles";
 
-export const GroupInputPassword = ({
+export const GroupSelect = ({
   label,
   placeholder,
   helperMessage,
@@ -10,20 +11,16 @@ export const GroupInputPassword = ({
   register,
 }) => {
   return (
-    <StyledGroupInputPassword>
+    <StyledGroupInput>
       <Typography fonttype="headline" fontcolor="grey0">
         {label}
       </Typography>
-      <InputPassword
-        placeholder={placeholder}
-        register={register}
-        field={field}
-      />
+      <Select placeholder={placeholder} register={register} field={field} />
       {helperMessage && (
         <Typography fonttype="helper" fontcolor="negative">
           {helperMessage}
         </Typography>
       )}
-    </StyledGroupInputPassword>
+    </StyledGroupInput>
   );
 };

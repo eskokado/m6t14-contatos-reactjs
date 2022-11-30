@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export const StyledCardForm = styled.div`
+export const StyledCardForm = styled.form`
   display: flex;
   flex-direction: column;
   min-width: 37rem;
+  max-width: 37rem;
   padding: 4.2rem 2.2rem;
   background-color: var(--color-grey-3);
   align-items: center;
