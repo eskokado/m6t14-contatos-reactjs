@@ -1,15 +1,15 @@
 import { Button, ButtonLink } from "../../styles/buttons";
 import logo from "../../assets/Logo.png";
 import { Logo } from "../../styles/logo";
-import { StyledHeaderRegister } from "./styles";
+import { StyledNavbar } from "./styles";
 
-export const HeaderRegister = () => {
+export const Navbar = ({ labelButton }) => {
   return (
-    <StyledHeaderRegister>
+    <StyledNavbar>
       <Logo src={logo} />
       <Button buttoncolor="grey" buttonstyle="small" fontSize="min">
-        Voltar
+        {labelButton}
       </Button>
-    </StyledHeaderRegister>
+    </StyledNavbar>
   );
 };
