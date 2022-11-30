@@ -11,6 +11,7 @@ export const RoutesMain = () => {
       <Route path="register" element={<RegisterPage />} />
       <Route path="dashboard" element={<DashboardPage />} />
       <Route path="home" element={<HomePage />} />
+      <Route path="*" element={<LoginPage />} />
     </Routes>
   );
 };
