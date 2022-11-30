@@ -1,15 +1,20 @@
-import { Button, ButtonLink } from "../../styles/buttons";
+import { ButtonLink } from "../../styles/buttons";
 import logo from "../../assets/Logo.png";
 import { Logo } from "../../styles/logo";
 import { StyledNavbar } from "./styles";
 
-export const Navbar = ({ labelButton }) => {
+export const Navbar = ({ labelButton, onClick }) => {
   return (
     <StyledNavbar>
       <Logo src={logo} />
-      <Button buttoncolor="grey" buttonstyle="small" fontSize="min">
+      <ButtonLink
+        buttoncolor="grey"
+        buttonstyle="small"
+        fontSize="min"
+        to="login"
+      >
         {labelButton}
-      </Button>
+      </ButtonLink>
     </StyledNavbar>
   );
 };

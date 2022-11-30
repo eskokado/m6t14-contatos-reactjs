@@ -6,7 +6,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
-export const InputPassword = ({ value, onChange, placeholder, className }) => {
+export const InputPassword = ({ placeholder, field, register }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onShowPassword = () => {
@@ -17,10 +17,8 @@ export const InputPassword = ({ value, onChange, placeholder, className }) => {
     <StyledInputPassword>
       <StyledInput
         type={showPassword ? "text" : "password"}
-        className={className}
-        value={value}
         placeholder={placeholder}
-        onChange={onChange}
+        {...register(field)}
       />
       <i onClick={onShowPassword}>{eye}</i>
     </StyledInputPassword>
