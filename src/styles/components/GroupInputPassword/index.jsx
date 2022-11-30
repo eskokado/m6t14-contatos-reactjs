@@ -1,14 +1,14 @@
-import { StyledInput } from "../../inputs";
+import { InputPassword } from "../../../components/InputPassword";
 import { Typography } from "../../typography";
-import { StyledGroupInput } from "./styles";
+import { StyledGroupInputPassword } from "./styles";
 
-export const GroupInput = ({ label, placeholder, helperMessage }) => {
+export const GroupInputPassword = ({ label, placeholder, helperMessage }) => {
   return (
-    <StyledGroupInput>
+    <StyledGroupInputPassword>
       <Typography fonttype="headline" fontcolor="grey0">
         {label}
       </Typography>
-      <StyledInput placeholder={placeholder} />
+      <InputPassword placeholder={placeholder} />
       {helperMessage ? (
         <Typography fonttype="helper" fontcolor="grey0">
           {helperMessage}
@@ -16,6 +16,6 @@ export const GroupInput = ({ label, placeholder, helperMessage }) => {
       ) : (
         ""
       )}
-    </StyledGroupInput>
+    </StyledGroupInputPassword>
   );
 };
