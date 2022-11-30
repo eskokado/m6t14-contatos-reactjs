@@ -1,17 +1,18 @@
 import { CardForm } from "../../components/CardForm";
-import { Button } from "../../styles/buttons";
+import { ButtonLink } from "../../styles/buttons";
 import { GroupInput } from "../../styles/components/GroupInput";
 import { Logo } from "../../styles/logo";
 import { Typography } from "../../styles/typography";
 import { StyledLoginPage } from "./styles";
 import logo from "../../assets/Logo.png";
+import { GroupInputPassword } from "../../styles/components/GroupInputPassword";
 
 export const LoginPage = () => {
   return (
     <StyledLoginPage>
       <Logo src={logo} alt="Kenzie hub" />
       <CardForm>
-        <Typography title2 grey0 semibody>
+        <Typography fonttype="title2" fontcolor="grey0" fontweight="semibody">
           Login
         </Typography>
         <GroupInput
@@ -19,20 +20,28 @@ export const LoginPage = () => {
           placeholder="Digite seu e-mail"
           helperMessage="E-mail inválido"
         />
-        <GroupInput
+        <GroupInputPassword
           label="Senha"
           placeholder="Digite sua senha"
           helperMessage="Senha inválido"
         />
-        <Button default primary max>
+        <ButtonLink
+          buttonstyle="default"
+          buttoncolor="primary"
+          buttonwidth="max"
+        >
           Entrar
-        </Button>
-        <Typography headline grey1 semibody>
+        </ButtonLink>
+        <Typography fonttype="headline" fontcolor="grey1" fontweight="semibody">
           Ainda não possui uma conta?
         </Typography>
-        <Button default disabled max>
+        <ButtonLink
+          buttonstyle="default"
+          buttoncolor="disabled"
+          buttonwidth="max"
+        >
           Cadastre-se
-        </Button>
+        </ButtonLink>
       </CardForm>
     </StyledLoginPage>
   );

@@ -1,15 +1,13 @@
 import React from "react";
 
-export const BaseFont = (props) => {
+export const BaseFont = ({ fonttype, className, children }) => {
   return (
     <>
-      {props.title1 && <h1 className={props.className}>{props.children}</h1>}
-      {props.title2 && <h2 className={props.className}>{props.children}</h2>}
-      {props.title3 && <h3 className={props.className}>{props.children}</h3>}
-      {props.headline && <p className={props.className}>{props.children}</p>}
-      {props.helper && (
-        <span className={props.className}>{props.children}</span>
-      )}
+      {fonttype === "title1" && <h1 className={className}>{children}</h1>}
+      {fonttype === "title2" && <h2 className={className}>{children}</h2>}
+      {fonttype === "title3" && <h3 className={className}>{children}</h3>}
+      {fonttype === "headline" && <p className={className}>{children}</p>}
+      {fonttype === "helper" && <span className={className}>{children}</span>}
     </>
   );
 };

@@ -3,16 +3,16 @@ import styled, { css } from "styled-components";
 import { BaseFont } from "./components/BaseFont";
 
 export const Typography = styled(BaseFont)`
-  ${(props) => {
-    if (props.body) {
+  ${({ fontweight }) => {
+    if (fontweight === "body") {
       return css`
         font-weight: 700;
       `;
-    } else if (props.semibody) {
+    } else if (fontweight === "semibody") {
       return css`
         font-weight: 600;
       `;
-    } else if (props.medium) {
+    } else if (fontweight === "medium") {
       return css`
         font-weight: 500;
       `;
@@ -22,8 +22,8 @@ export const Typography = styled(BaseFont)`
       `;
     }
   }}
-  ${(props) => {
-    if (props.italic) {
+  ${({ fontstyle }) => {
+    if (fontstyle === "italic") {
       return css`
         font-style: italic;
       `;
@@ -33,52 +33,52 @@ export const Typography = styled(BaseFont)`
       `;
     }
   }}
-  ${(props) => {
-    if (props.primary)
+  ${({ fontcolor }) => {
+    if (fontcolor === "primary")
       return css`
         color: var(--color-primary);
       `;
-    else if (props.primary50)
+    else if (fontcolor === "primary50")
       return css`
         color: var(--color-primary-50);
       `;
-    else if (props.primaryDisable)
+    else if (fontcolor === "primaryDisable")
       return css`
         color: var(--color-primary-disable);
       `;
-    else if (props.grey4)
+    else if (fontcolor === "grey4")
       return css`
         color: var(--color-grey-4);
       `;
-    else if (props.grey3)
+    else if (fontcolor === "grey3")
       return css`
         color: var(--color-grey-3);
       `;
-    else if (props.grey2)
+    else if (fontcolor === "grey2")
       return css`
         color: var(--color-grey-2);
       `;
-    else if (props.grey1)
+    else if (fontcolor === "grey1")
       return css`
         color: var(--color-grey-1);
       `;
-    else if (props.grey0)
+    else if (fontcolor === "grey0")
       return css`
         color: var(--color-grey-0);
       `;
-    else if (props.success)
+    else if (fontcolor === "success")
       return css`
         color: var(--color-success);
       `;
-    else if (props.warning)
+    else if (fontcolor === "warning")
       return css`
         color: var(--color-warning);
       `;
-    else if (props.negative)
+    else if (fontcolor === "negative")
       return css`
         color: var(--color-negative);
       `;
-    else if (props.red)
+    else if (fontcolor === "red")
       return css`
         color: var(--color-red);
       `;
@@ -87,28 +87,28 @@ export const Typography = styled(BaseFont)`
         color: #ffffff;
       `;
   }}
-  ${(props) => {
-    if (props.title1) {
+  ${({ fonttype }) => {
+    if (fonttype === "title1") {
       return css`
         font-size: 1.8rem;
         line-height: 2.8rem;
       `;
-    } else if (props.title2) {
+    } else if (fonttype === "title2") {
       return css`
         font-size: 1.6rem;
         line-height: 2.6rem;
       `;
-    } else if (props.title3) {
+    } else if (fonttype === "title3") {
       return css`
         font-size: 1.4rem;
         line-height: 2.4rem;
       `;
-    } else if (props.headline) {
+    } else if (fonttype === "headline") {
       return css`
         font-size: 1.2rem;
         line-height: 1.8rem;
       `;
-    } else if (props.helper) {
+    } else if (fonttype === "helper") {
       return css`
         font-size: 1rem;
         line-height: 1.6rem;

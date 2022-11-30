@@ -1,7 +1,8 @@
 import { CardForm } from "../../components/CardForm";
 import { HeaderRegister } from "../../components/HeaderRegister";
-import { Button } from "../../styles/buttons";
+import { ButtonLink } from "../../styles/buttons";
 import { GroupInput } from "../../styles/components/GroupInput";
+import { GroupInputPassword } from "../../styles/components/GroupInputPassword";
 import { Typography } from "../../styles/typography";
 import { StyledRegisterPage } from "./styles";
 
@@ -10,10 +11,10 @@ export const RegisterPage = () => {
     <StyledRegisterPage>
       <HeaderRegister />
       <CardForm>
-        <Typography title2 grey0 semibody>
+        <Typography fonttype="title2" fontcolor="grey0" fontweight="semibody">
           Crie sua conta
         </Typography>
-        <Typography headline grey1>
+        <Typography fonttype="headline" fontcolor="grey1">
           Rapido e grátis, vamos nessa
         </Typography>
         <GroupInput
@@ -26,21 +27,25 @@ export const RegisterPage = () => {
           placeholder="Digite aqui seu email"
           helperMessage="Email inválido"
         />
-        <GroupInput
+        <GroupInputPassword
           label="Senha"
-          placeholder="Digite aqui sua senha"
+          placeholder="Digite sua senha"
           helperMessage="Senha inválido"
         />
-        <GroupInput
+        <GroupInputPassword
           label="Confirmar senha"
           placeholder="Digite novamente sua senha"
           helperMessage="Confirmação inválido"
         />
         <GroupInput label="Bio" placeholder="Fale sobre você" />
         <GroupInput label="Contato" placeholder="Opção de contato" />
-        <Button default primary max>
+        <ButtonLink
+          buttonstyle="default"
+          buttoncolor="primary"
+          buttonwidth="max"
+        >
           Cadastrar
-        </Button>
+        </ButtonLink>
       </CardForm>
     </StyledRegisterPage>
   );
