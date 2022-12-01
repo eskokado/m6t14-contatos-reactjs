@@ -8,7 +8,7 @@ export const StyledUnderDevelopment = styled.div`
     margin-top: 2rem;
   }
   @media (max-width: 400px) {
-    margin-top: 2rem;
+    padding: 2rem;
     & > p {
       margin-top: 1rem;
     }

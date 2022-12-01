@@ -7,7 +7,7 @@ function App() {
     <>
       <Global />
       <RoutesMain />
-      <ToastContainer />
+      <ToastContainer position="top-center" />
     </>
   );
 }
