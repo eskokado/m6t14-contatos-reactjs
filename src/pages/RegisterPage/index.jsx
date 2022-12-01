@@ -15,7 +15,11 @@ export const RegisterPage = () => {
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
   const formSchema = yup.object().shape({
     email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
-    name: yup.string().required("Nome obrigatório"),
+    name: yup
+      .string()
+      .required("Nome obrigatório")
+      .min(3, "O nome precisa ter pelo 3 caracteres.")
+      .max(200, "O nome pode ter no máximo 200 caracteres."),
     password: yup
       .string()
       .required("Senha obrigatório")
@@ -25,10 +29,18 @@ export const RegisterPage = () => {
       ),
     confirmPassword: yup
       .string()
-      .required()
+      .required("Confirmar a senha é obrigatório")
       .oneOf([yup.ref("password")], "As senhas não coincidem"),
-    bio: yup.string().required("Bio obrigatório"),
-    contact: yup.string().required("Contato obrigatório"),
+    bio: yup
+      .string()
+      .required("Bio obrigatório")
+      .min(3, "Bio precisa ter pelo 3 caracteres.")
+      .max(400, "Bio pode ter no máximo 400 caracteres."),
+    contact: yup
+      .string()
+      .required("Contato obrigatório")
+      .min(3, "O contato precisa ter pelo 3 caracteres.")
+      .max(200, "O contato pode ter no máximo 200 caracteres."),
     course_module: yup.string().required("Curso modulo obrigatório"),
   });
 
@@ -44,7 +56,7 @@ export const RegisterPage = () => {
 
   return (
     <StyledRegisterPage>
-      <Navbar labelButton="Voltar" />
+      <Navbar labelButton="Voltar" to="/login" />
       <CardForm onSubmit={handleSubmit(onSubmitFunction)}>
         <Typography fonttype="title2" fontcolor="grey0" fontweight="semibody">
           Crie sua conta
