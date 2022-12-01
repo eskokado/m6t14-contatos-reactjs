@@ -14,10 +14,12 @@ import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const LoginPage = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const loggedSuccess = () => navigate("/home");
+
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
   const formSchema = yup.object().shape({
@@ -37,20 +39,25 @@ export const LoginPage = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(formSchema),
+    mode: "onChange",
   });
 
   const onSubmitFunction = async (data) => {
     try {
+      setLoading(true);
       const response = await toast.promise(api.post("sessions", data), {
         pending: "Efetuando login pendente...",
         success: "Login efetuado com sucesso",
       });
       localStorage.setItem("@TOKEN", response.data.token);
       localStorage.setItem("@USERID", response.data.user.id);
+      const loggedSuccess = () => navigate("/home");
       loggedSuccess();
     } catch (error) {
       const notify = () => toast.error("Falha ao logar!!!");
       notify();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,8 +87,9 @@ export const LoginPage = () => {
           buttonstyle="default"
           buttoncolor="primary"
           buttonwidth="max"
+          disabled={loading}
         >
-          Entrar
+          {loading ? "Entrando..." : "Entrar"}
         </Button>
         <Typography fonttype="headline" fontcolor="grey1" fontweight="semibody">
           Ainda não possui uma conta?
@@ -91,6 +99,7 @@ export const LoginPage = () => {
           buttoncolor="disabled"
           buttonwidth="max"
           to="/register"
+          disabled={loading}
         >
           Cadastre-se
         </ButtonLink>

@@ -1,6 +1,6 @@
 import { CardForm } from "../../components/CardForm";
 import { Navbar } from "../../components/Navbar";
-import { Button, ButtonLink } from "../../styles/buttons";
+import { Button } from "../../styles/buttons";
 import { GroupInput } from "../../components/GroupInput";
 import { GroupInputPassword } from "../../components/GroupInputPassword";
 import { Typography } from "../../styles/typography";
@@ -9,8 +9,14 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { GroupSelect } from "../../components/GroupSelect";
+import { toast } from "react-toastify";
+import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const RegisterPage = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
   const formSchema = yup.object().shape({
@@ -50,9 +56,25 @@ export const RegisterPage = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(formSchema),
+    mode: "onChange",
   });
 
-  const onSubmitFunction = (data) => console.log(data);
+  const onSubmitFunction = async (data) => {
+    try {
+      setLoading(true);
+      const response = await toast.promise(api.post("users", data), {
+        pending: "Cadastrando novo usuário...",
+        success: "Novo usuário cadastrado com sucesso",
+      });
+      const registeredSuccess = () => navigate("/login");
+      registeredSuccess();
+    } catch (error) {
+      const notify = () => toast.error("Não foi possível cadastrar o usuário");
+      notify();
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <StyledRegisterPage>
@@ -122,8 +144,9 @@ export const RegisterPage = () => {
           buttonstyle="default"
           buttoncolor="primaryDisable"
           buttonwidth="max"
+          disabled={loading}
         >
-          Cadastrar
+          {loading ? "Cadastrando..." : "Cadastrar"}
         </Button>
       </CardForm>
     </StyledRegisterPage>

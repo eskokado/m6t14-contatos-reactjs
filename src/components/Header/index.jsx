@@ -1,14 +1,14 @@
 import { Typography } from "../../styles/typography";
 import { StyledHeader } from "./styles";
 
-export const Header = (props) => {
+export const Header = ({ user }) => {
   return (
     <StyledHeader>
       <Typography fonttype="title1" fontcolor="grey0">
-        Olá, Edson Shideki Kokado
+        Olá, {user.name}
       </Typography>
       <Typography fonttype="headline" fontweight="bold" fontcolor="grey1">
-        Primeiro módulo (Introdução ao Frontend)
+        {user.course_module}
       </Typography>
     </StyledHeader>
   );
