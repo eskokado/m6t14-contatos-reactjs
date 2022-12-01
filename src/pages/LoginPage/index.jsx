@@ -99,7 +99,6 @@ export const LoginPage = () => {
           buttoncolor="disabled"
           buttonwidth="max"
           to="/register"
-          disabled={loading}
         >
           Cadastre-se
         </ButtonLink>
