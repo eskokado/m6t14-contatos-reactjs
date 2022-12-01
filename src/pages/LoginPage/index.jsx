@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { CardForm } from "../../components/CardForm";
 import { Button, ButtonLink } from "../../styles/buttons";
 import { GroupInput } from "../../components/GroupInput";
@@ -9,8 +10,14 @@ import { GroupInputPassword } from "../../components/GroupInputPassword";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { api } from "../../services/api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+  const loggedSuccess = () => navigate("/home");
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
   const formSchema = yup.object().shape({
@@ -32,7 +39,20 @@ export const LoginPage = () => {
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmitFunction = (data) => console.log(data);
+  const onSubmitFunction = async (data) => {
+    try {
+      const response = await toast.promise(api.post("sessions", data), {
+        pending: "Efetuando login pendente...",
+        success: "Login efetuado com sucesso",
+      });
+      localStorage.setItem("@TOKEN", response.data.token);
+      localStorage.setItem("@USERID", response.data.user.id);
+      loggedSuccess();
+    } catch (error) {
+      const notify = () => toast.error("Falha ao logar!!!");
+      notify();
+    }
+  };
 
   return (
     <StyledLoginPage>
@@ -70,7 +90,7 @@ export const LoginPage = () => {
           buttonstyle="default"
           buttoncolor="disabled"
           buttonwidth="max"
-          to="register"
+          to="/register"
         >
           Cadastre-se
         </ButtonLink>

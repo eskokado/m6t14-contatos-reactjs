@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import { RoutesMain } from "./routes";
 import Global from "./styles/global";
 
@@ -6,6 +7,7 @@ function App() {
     <>
       <Global />
       <RoutesMain />
+      <ToastContainer />
     </>
   );
 }
