@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { CardForm } from "../../components/CardForm";
 import { Navbar } from "../../components/Navbar";
 import { Button } from "../../styles/buttons";
@@ -14,6 +15,7 @@ import { UserContext } from "../../contexts/UserContext";
 
 export const RegisterPage = () => {
   const { loading, onRegister } = useContext(UserContext);
+
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
   const formSchema = yup.object().shape({
