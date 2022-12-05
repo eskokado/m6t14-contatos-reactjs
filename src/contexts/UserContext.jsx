@@ -7,6 +7,7 @@ export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
 
   const onLogin = async (data) => {
@@ -45,8 +46,55 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const onLogout = () => {
+    localStorage.removeItem("@TOKEN");
+    localStorage.removeItem("@USERID");
+    setUser({});
+    navigate("/login");
+  };
+
+  const getUser = async () => {
+    const userId = localStorage.getItem("@USERID");
+    try {
+      const response = await api.get(`users/${userId}`);
+      setUser(response.data);
+    } catch (error) {
+      const notify = () => toast.error("Erro ao localizar o usuário");
+      notify();
+      setUser({});
+    }
+  };
+
+  const autoLogin = async () => {
+    const token = localStorage.getItem("@TOKEN");
+    if (token) {
+      try {
+        const response = await api.get("/profile", {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          setUser(response.data);
+        }
+      } catch (error) {
+        localStorage.removeItem("@TOKEN");
+        localStorage.removeItem("@USERID");
+      }
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ loading, onLogin, onRegister }}>
+    <UserContext.Provider
+      value={{
+        loading,
+        onLogin,
+        onRegister,
+        onLogout,
+        user,
+        autoLogin,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

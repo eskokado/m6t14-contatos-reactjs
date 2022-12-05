@@ -1,49 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
 import { UnderDevelopment } from "../../components/UnderDevelopment";
-import { api } from "../../services/api";
+import { UserContext } from "../../contexts/UserContext";
 import { Container } from "../../styles/container";
 import { StyledHomePage } from "./styles";
 
-export const HomePage = (props) => {
-  const userId = localStorage.getItem("@USERID");
-
-  const [user, setUser] = useState({});
+export const HomePage = () => {
+  const { user, onLogout, autoLogin } = useContext(UserContext);
   const navigate = useNavigate();
+
   useEffect(() => {
+    const mountAutoLogin = async () => {
+      await autoLogin();
+    };
+    mountAutoLogin();
+    const userId = localStorage.getItem("@USERID");
     if (userId === null) {
       navigate("/login");
-    } else {
-      getUser();
     }
   }, []);
-
-  const logout = () => {
-    localStorage.removeItem("@TOKEN");
-    localStorage.removeItem("@USERID");
-    navigate("/login");
-  };
-
-  const getUser = async () => {
-    try {
-      const response = await api.get(`users/${userId}`);
-      setUser(response.data);
-    } catch (error) {
-      const notify = () => toast.error("Erro ao localizar o usuário");
-      notify();
-      setUser({});
-    }
-  };
 
   return (
     <StyledHomePage>
       <section>
         <Container>
-          <Navbar labelButton="Sair" onClick={logout} />
+          <Navbar labelButton="Sair" onClick={onLogout} />
         </Container>
       </section>
       <section>
