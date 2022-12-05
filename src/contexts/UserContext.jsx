@@ -28,8 +28,25 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const onRegister = async (data) => {
+    try {
+      setLoading(true);
+      await toast.promise(api.post("users", data), {
+        pending: "Cadastrando novo usuário...",
+        success: "Novo usuário cadastrado com sucesso",
+      });
+      const registeredSuccess = () => navigate("/login");
+      registeredSuccess();
+    } catch (error) {
+      const notify = () => toast.error("Não foi possível cadastrar o usuário");
+      notify();
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ loading, onLogin }}>
+    <UserContext.Provider value={{ loading, onLogin, onRegister }}>
       {children}
     </UserContext.Provider>
   );
