@@ -9,14 +9,11 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { GroupSelect } from "../../components/GroupSelect";
-import { toast } from "react-toastify";
-import { api } from "../../services/api";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 export const RegisterPage = () => {
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const { loading, onRegister } = useContext(UserContext);
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
   const formSchema = yup.object().shape({
@@ -59,27 +56,10 @@ export const RegisterPage = () => {
     mode: "onChange",
   });
 
-  const onSubmitFunction = async (data) => {
-    try {
-      setLoading(true);
-      const response = await toast.promise(api.post("users", data), {
-        pending: "Cadastrando novo usuário...",
-        success: "Novo usuário cadastrado com sucesso",
-      });
-      const registeredSuccess = () => navigate("/login");
-      registeredSuccess();
-    } catch (error) {
-      const notify = () => toast.error("Não foi possível cadastrar o usuário");
-      notify();
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <StyledRegisterPage>
       <Navbar labelButton="Voltar" to="/login" />
-      <CardForm onSubmit={handleSubmit(onSubmitFunction)}>
+      <CardForm onSubmit={handleSubmit(onRegister)}>
         <Typography fonttype="title2" fontcolor="grey0" fontweight="semibody">
           Crie sua conta
         </Typography>
