@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
 import { UnderDevelopment } from "../../components/UnderDevelopment";
@@ -9,21 +9,13 @@ import { Container } from "../../styles/container";
 import { StyledHomePage } from "./styles";
 
 export const HomePage = () => {
-  const { user, onLogout, autoLogin } = useContext(UserContext);
-  const navigate = useNavigate();
+  const { user, onLogout, loading } = useContext(UserContext);
 
-  useEffect(() => {
-    const mountAutoLogin = async () => {
-      await autoLogin();
-    };
-    mountAutoLogin();
-    const userId = localStorage.getItem("@USERID");
-    if (userId === null) {
-      navigate("/login");
-    }
-  }, []);
+  if (loading) {
+    return null;
+  }
 
-  return (
+  return user ? (
     <StyledHomePage>
       <section>
         <Container>
@@ -32,12 +24,14 @@ export const HomePage = () => {
       </section>
       <section>
         <Container>
-          <Header user={user} />
+          <Header />
         </Container>
       </section>
       <Container>
         <UnderDevelopment />
       </Container>
     </StyledHomePage>
+  ) : (
+    <Navigate to="/" />
   );
 };
