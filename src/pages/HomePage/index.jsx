@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
@@ -25,7 +25,7 @@ export const HomePage = () => {
       </section>
       <section>
         <Container>
-          <Header user={user} />
+          <Header />
         </Container>
       </section>
       <Container>

@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import { Typography } from "../../styles/typography";
 import { StyledHeader } from "./styles";
 
-export const Header = ({ user }) => {
+export const Header = () => {
+  const { user } = useContext(UserContext);
   return (
     <StyledHeader>
       <Typography fonttype="title1" fontcolor="grey0">

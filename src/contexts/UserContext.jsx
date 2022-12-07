@@ -20,12 +20,12 @@ export const UserProvider = ({ children }) => {
         return;
       }
       try {
-        const response = await api.get("/profile", {
+        const { data } = await api.get("/profile", {
           headers: {
             authorization: `Bearer ${token}`,
           },
         });
-        setUser((old) => (old = response.data));
+        setUser({ ...data });
       } catch (error) {
         localStorage.removeItem("@TOKEN");
         localStorage.removeItem("@USERID");
@@ -45,6 +45,7 @@ export const UserProvider = ({ children }) => {
       });
       localStorage.setItem("@TOKEN", response.data.token);
       localStorage.setItem("@USERID", response.data.user.id);
+      setUser({ ...response.data.user });
       const loggedSuccess = () => navigate("/home");
       loggedSuccess();
     } catch (error) {
@@ -75,7 +76,7 @@ export const UserProvider = ({ children }) => {
   const onLogout = () => {
     localStorage.removeItem("@TOKEN");
     localStorage.removeItem("@USERID");
-    setUser({});
+    setUser(null);
     navigate("/login");
   };
 
