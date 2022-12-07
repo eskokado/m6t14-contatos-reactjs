@@ -8,18 +8,32 @@ export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const mountAutoLogin = async () => {
-      await autoLogin();
+    const autoLogin = async () => {
+      setLoading(true);
+      const token = localStorage.getItem("@TOKEN");
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+      try {
+        const response = await api.get("/profile", {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        });
+        setUser((old) => (old = response.data));
+      } catch (error) {
+        localStorage.removeItem("@TOKEN");
+        localStorage.removeItem("@USERID");
+      } finally {
+        setLoading(false);
+      }
     };
-    mountAutoLogin();
-    const userId = localStorage.getItem("@USERID");
-    if (userId === null) {
-      navigate("/login");
-    }
+    autoLogin();
   }, []);
 
   const onLogin = async (data) => {
@@ -80,28 +94,6 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const autoLogin = async () => {
-    setLoading(true);
-    const token = localStorage.getItem("@TOKEN");
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-    try {
-      const response = await api.get("/profile", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      setUser(response.data);
-    } catch (error) {
-      localStorage.removeItem("@TOKEN");
-      localStorage.removeItem("@USERID");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <UserContext.Provider
       value={{
@@ -110,7 +102,6 @@ export const UserProvider = ({ children }) => {
         onRegister,
         onLogout,
         user,
-        autoLogin,
       }}
     >
       {children}
