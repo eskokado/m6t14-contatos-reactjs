@@ -7,6 +7,8 @@ import { Navbar } from "../../components/Navbar";
 import { UnderDevelopment } from "../../components/UnderDevelopment";
 import { UserContext } from "../../contexts/UserContext";
 import { Container } from "../../styles/container";
+import { MainHome } from "./components/MainHome";
+import { MainTop } from "./components/MainTop";
 import { StyledHomePage } from "./styles";
 
 export const HomePage = () => {
@@ -28,9 +30,7 @@ export const HomePage = () => {
           <Header />
         </Container>
       </section>
-      <Container>
-        <UnderDevelopment />
-      </Container>
+      <MainHome />
     </StyledHomePage>
   ) : (
     <Navigate to="/" />
