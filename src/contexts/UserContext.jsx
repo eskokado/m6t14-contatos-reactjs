@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { api } from "../services/api";
@@ -6,9 +7,20 @@ import { api } from "../services/api";
 export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const mountAutoLogin = async () => {
+      await autoLogin();
+    };
+    mountAutoLogin();
+    const userId = localStorage.getItem("@USERID");
+    if (userId === null) {
+      navigate("/login");
+    }
+  }, []);
 
   const onLogin = async (data) => {
     try {
@@ -54,6 +66,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const getUser = async () => {
+    setLoading(true);
     const userId = localStorage.getItem("@USERID");
     try {
       const response = await api.get(`users/${userId}`);
@@ -62,25 +75,30 @@ export const UserProvider = ({ children }) => {
       const notify = () => toast.error("Erro ao localizar o usuário");
       notify();
       setUser({});
+    } finally {
+      setLoading(false);
     }
   };
 
   const autoLogin = async () => {
+    setLoading(true);
     const token = localStorage.getItem("@TOKEN");
-    if (token) {
-      try {
-        const response = await api.get("/profile", {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.status === 200) {
-          setUser(response.data);
-        }
-      } catch (error) {
-        localStorage.removeItem("@TOKEN");
-        localStorage.removeItem("@USERID");
-      }
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    try {
+      const response = await api.get("/profile", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(response.data);
+    } catch (error) {
+      localStorage.removeItem("@TOKEN");
+      localStorage.removeItem("@USERID");
+    } finally {
+      setLoading(false);
     }
   };
 
