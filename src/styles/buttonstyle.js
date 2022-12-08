@@ -91,6 +91,18 @@ export const buttonstyle = css`
           color: var(--color-text);
         }
       `;
+    } else if (buttoncolor === "grey1") {
+      return css`
+        background: var(--color-grey-2);
+        border: 0.625rem solid var(--color-grey-2);
+        color: var(--color-text);
+
+        &:hover {
+          background: var(--color-grey-3);
+          border: 0.625rem solid var(--color-grey-3);
+          color: var(--color-text);
+        }
+      `;
     }
   }}
 `;

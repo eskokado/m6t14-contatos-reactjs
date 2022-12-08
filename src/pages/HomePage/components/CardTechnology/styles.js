@@ -9,4 +9,5 @@ export const StyledCardTechnology = styled.li`
   background-color: var(--color-grey-4);
   margin-bottom: 1rem;
   border-radius: 0.5rem;
+  cursor: pointer;
 `;
