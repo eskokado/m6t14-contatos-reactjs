@@ -25,7 +25,7 @@ export const UserProvider = ({ children }) => {
             authorization: `Bearer ${token}`,
           },
         });
-        setUser({ ...data });
+        setUser(data);
       } catch (error) {
         localStorage.removeItem("@TOKEN");
         localStorage.removeItem("@USERID");
@@ -45,7 +45,7 @@ export const UserProvider = ({ children }) => {
       });
       localStorage.setItem("@TOKEN", response.data.token);
       localStorage.setItem("@USERID", response.data.user.id);
-      setUser({ ...response.data.user });
+      setUser(response.data.user);
       const loggedSuccess = () => navigate("/home");
       loggedSuccess();
     } catch (error) {
