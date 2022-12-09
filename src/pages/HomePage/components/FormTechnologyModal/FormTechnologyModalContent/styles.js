@@ -7,4 +7,8 @@ export const StyledFormTechnologyModalContent = styled.form`
   width: 100%;
   padding: 1rem 2rem;
   gap: 1rem;
+  & > div {
+    display: flex;
+    justify-content: space-between;
+  }
 `;

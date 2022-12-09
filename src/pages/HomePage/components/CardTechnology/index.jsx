@@ -6,19 +6,22 @@ import { useContext } from "react";
 import { TechContext } from "../../../../contexts/TechContext";
 
 export const CardTechnology = ({ tech }) => {
-  const { onRemoveTech } = useContext(TechContext);
+  const { setShowTechModal, setTech } = useContext(TechContext);
+  const handleShowModal = () => {
+    setTech(tech);
+    setShowTechModal(true);
+  };
+
   return (
-    <StyledCardTechnology>
-      <Typography fonttype="title3" fontcolor="grey0">
-        {tech.title}
-      </Typography>
-      <Button
-        buttonstyle="icon"
-        buttoncolor="grey"
-        onClick={() => onRemoveTech(tech.id)}
-      >
-        <FaTrash />
-      </Button>
+    <StyledCardTechnology onClick={handleShowModal}>
+      <div>
+        <Typography fonttype="title3" fontcolor="grey0">
+          {tech.title}
+        </Typography>
+        <Typography fonttype="headline" fontcolor="grey1">
+          {tech.status}
+        </Typography>
+      </div>
     </StyledCardTechnology>
   );
 };

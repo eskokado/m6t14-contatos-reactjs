@@ -49,6 +49,16 @@ export const RegisterPage = () => {
     course_module: yup.string().required("Curso modulo obrigatório"),
   });
 
+  const defaultValues = {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    bio: "",
+    contact: "",
+    course_module: "",
+  };
+
   const {
     register,
     handleSubmit,
@@ -57,6 +67,30 @@ export const RegisterPage = () => {
     resolver: yupResolver(formSchema),
     mode: "onChange",
   });
+
+  const optionsCoursesModules = [
+    { value: "", text: "Seleciona um módulo" },
+    {
+      value: "1o Módulo - frontend - básico",
+      text: "1o Módulo - frontend - básico",
+    },
+    {
+      value: "2o Módulo - frontend - intermediário",
+      text: "2o Módulo - frontend - intermediário",
+    },
+    {
+      value: "3o Módulo - frontend - avançado",
+      text: "3o Módulo - frontend - avançado",
+    },
+    {
+      value: "4o Módulo - backend - javaScript",
+      text: "4o Módulo - backend - javaScript",
+    },
+    {
+      value: "5o Módulo - backend - python",
+      text: "5o Módulo - backend - python",
+    },
+  ];
 
   return (
     <StyledRegisterPage>
@@ -74,6 +108,7 @@ export const RegisterPage = () => {
           helperMessage={errors.name?.message && errors.name.message}
           field="name"
           register={register}
+          defaultValues={defaultValues}
         />
         <GroupInput
           label="Email"
@@ -81,6 +116,7 @@ export const RegisterPage = () => {
           helperMessage={errors.email?.message && errors.email.message}
           field="email"
           register={register}
+          defaultValues={defaultValues}
         />
         <GroupInputPassword
           label="Senha"
@@ -88,6 +124,7 @@ export const RegisterPage = () => {
           helperMessage={errors.password?.message && errors.password.message}
           field="password"
           register={register}
+          defaultValues={defaultValues}
         />
         <GroupInputPassword
           label="Confirmar senha"
@@ -97,6 +134,7 @@ export const RegisterPage = () => {
             errors.confirmPassword?.message && errors.confirmPassword.message
           }
           register={register}
+          defaultValues={defaultValues}
         />
         <GroupInput
           label="Bio"
@@ -104,6 +142,7 @@ export const RegisterPage = () => {
           helperMessage={errors.bio?.message && errors.bio.message}
           field="bio"
           register={register}
+          defaultValues={defaultValues}
         />
         <GroupInput
           label="Contato"
@@ -111,6 +150,7 @@ export const RegisterPage = () => {
           helperMessage={errors.contact?.message && errors.contact.message}
           field="contact"
           register={register}
+          defaultValues={defaultValues}
         />
         <GroupSelect
           label="Selecionar módulo"
@@ -120,14 +160,9 @@ export const RegisterPage = () => {
           }
           field="course_module"
           register={register}
-        >
-          <option value="">Seleciona um módulo</option>
-          <option>1o Módulo - frontend - básico</option>
-          <option>2o Módulo - frontend - intermediário</option>
-          <option>3o Módulo - frontend - avançado</option>
-          <option>4o Módulo - backend - javaScript</option>
-          <option>5o Módulo - backend - python</option>
-        </GroupSelect>
+          defaultValues={defaultValues}
+          options={optionsCoursesModules}
+        ></GroupSelect>
         <Button
           type="submit"
           buttonstyle="default"

@@ -26,4 +26,7 @@ export const StyledModalWrapper = styled.section`
   align-items: center;
   justify-content: center;
   z-index: 0;
+  @media (max-width: 400px) {
+    padding: 1rem;
+  }
 `;
