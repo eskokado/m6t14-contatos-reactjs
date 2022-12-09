@@ -15,15 +15,12 @@ export const TechProvider = ({ children }) => {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    const token = localStorage.getItem("@TOKEN");
-    api.defaults.headers.common.authorization = `Beader ${token}`;
-  }, []);
-
-  useEffect(() => {
     setTechs(user?.techs ? user.techs : []);
   }, [user]);
 
   const onCreateTech = async (data) => {
+    const token = localStorage.getItem("@TOKEN");
+    api.defaults.headers.common.authorization = `Beader ${token}`;
     setLoading(true);
     try {
       await toast.promise(api.post("/users/techs", data), {
@@ -41,6 +38,8 @@ export const TechProvider = ({ children }) => {
   };
 
   const onUpdateTech = async (data) => {
+    const token = localStorage.getItem("@TOKEN");
+    api.defaults.headers.common.authorization = `Beader ${token}`;
     setLoading(true);
     try {
       const token = localStorage.getItem("@TOKEN");
@@ -60,6 +59,8 @@ export const TechProvider = ({ children }) => {
   };
 
   const onRemoveTech = async (id) => {
+    const token = localStorage.getItem("@TOKEN");
+    api.defaults.headers.common.authorization = `Beader ${token}`;
     setLoading(true);
     try {
       await toast.promise(api.delete(`/users/techs/${id}`), {
