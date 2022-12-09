@@ -14,15 +14,17 @@ export const Select = ({
       {...register(field)}
       disabled={disabled}
     >
-      {options.map((option) => (
-        <option
-          key={option.value}
-          value={option.value}
-          selected={option.value === defaultValues[field]}
-        >
-          {option.text}
-        </option>
-      ))}
+      {options.map((option) =>
+        option.value === defaultValues[field] ? (
+          <option key={option.value} value={option.value} selected>
+            {option.text}
+          </option>
+        ) : (
+          <option key={option.value} value={option.value}>
+            {option.text}
+          </option>
+        )
+      )}
     </StyledSelect>
   );
 };
