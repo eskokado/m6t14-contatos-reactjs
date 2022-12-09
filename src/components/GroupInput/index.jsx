@@ -8,13 +8,20 @@ export const GroupInput = ({
   helperMessage,
   field,
   register,
+  defaultValues,
+  disabled = false,
 }) => {
   return (
     <StyledGroupInput>
       <Typography fonttype="headline" fontcolor="grey0">
         {label}
       </Typography>
-      <StyledInput placeholder={placeholder} {...register(field)} />
+      <StyledInput
+        placeholder={placeholder}
+        {...register(field)}
+        defaultValue={defaultValues[field]}
+        disabled={disabled}
+      />
       {helperMessage && (
         <Typography fonttype="helper" fontcolor="negative">
           {helperMessage}

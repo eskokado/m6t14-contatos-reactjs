@@ -1,14 +1,30 @@
 import { StyledSelect } from "./styles";
 
-export const Select = ({ placeholder, register, field }) => {
+export const Select = ({
+  placeholder,
+  register,
+  field,
+  defaultValues,
+  disabled,
+  options,
+}) => {
   return (
-    <StyledSelect placeholder={placeholder} {...register(field)}>
-      <option value="">Seleciona um módulo</option>
-      <option>1o Módulo - frontend - básico</option>
-      <option>2o Módulo - frontend - intermediário</option>
-      <option>3o Módulo - frontend - avançado</option>
-      <option>4o Módulo - backend - javaScript</option>
-      <option>5o Módulo - backend - python</option>
+    <StyledSelect
+      placeholder={placeholder}
+      {...register(field)}
+      disabled={disabled}
+    >
+      {options.map((option) =>
+        option.value === defaultValues[field] ? (
+          <option key={option.value} value={option.value} selected>
+            {option.text}
+          </option>
+        ) : (
+          <option key={option.value} value={option.value}>
+            {option.text}
+          </option>
+        )
+      )}
     </StyledSelect>
   );
 };

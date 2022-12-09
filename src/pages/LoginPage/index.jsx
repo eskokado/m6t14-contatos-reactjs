@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { CardForm } from "../../components/CardForm";
 import { Button, ButtonLink } from "../../styles/buttons";
@@ -10,15 +11,12 @@ import { GroupInputPassword } from "../../components/GroupInputPassword";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { api } from "../../services/api";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 export const LoginPage = () => {
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const { loading, onLogin } = useContext(UserContext);
 
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
@@ -42,29 +40,15 @@ export const LoginPage = () => {
     mode: "onChange",
   });
 
-  const onSubmitFunction = async (data) => {
-    try {
-      setLoading(true);
-      const response = await toast.promise(api.post("sessions", data), {
-        pending: "Efetuando login pendente...",
-        success: "Login efetuado com sucesso",
-      });
-      localStorage.setItem("@TOKEN", response.data.token);
-      localStorage.setItem("@USERID", response.data.user.id);
-      const loggedSuccess = () => navigate("/home");
-      loggedSuccess();
-    } catch (error) {
-      const notify = () => toast.error("Falha ao logar!!!");
-      notify();
-    } finally {
-      setLoading(false);
-    }
+  const defaultValues = {
+    email: "",
+    password: "",
   };
 
   return (
     <StyledLoginPage>
       <Logo src={logo} alt="Kenzie hub" />
-      <CardForm onSubmit={handleSubmit(onSubmitFunction)}>
+      <CardForm onSubmit={handleSubmit(onLogin)}>
         <Typography fonttype="title2" fontcolor="grey0" fontweight="semibody">
           Login
         </Typography>
@@ -74,6 +58,7 @@ export const LoginPage = () => {
           helperMessage={errors.email?.message && errors.email.message}
           field="email"
           register={register}
+          defaultValues={defaultValues}
         />
         <GroupInputPassword
           label="Senha"
@@ -81,6 +66,7 @@ export const LoginPage = () => {
           helperMessage={errors.password?.message && errors.password.message}
           field="password"
           register={register}
+          defaultValues={defaultValues}
         />
         <Button
           type="submit"

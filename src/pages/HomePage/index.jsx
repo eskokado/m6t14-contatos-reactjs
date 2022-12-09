@@ -1,59 +1,36 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
-import { UnderDevelopment } from "../../components/UnderDevelopment";
-import { api } from "../../services/api";
+import { UserContext } from "../../contexts/UserContext";
 import { Container } from "../../styles/container";
+import { MainHome } from "./components/MainHome";
 import { StyledHomePage } from "./styles";
 
-export const HomePage = (props) => {
-  const userId = localStorage.getItem("@USERID");
+export const HomePage = () => {
+  const { user, onLogout, loading } = useContext(UserContext);
 
-  const [user, setUser] = useState({});
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (userId === null) {
-      navigate("/login");
-    } else {
-      getUser();
-    }
-  }, []);
+  if (loading) {
+    return null;
+  }
 
-  const logout = () => {
-    localStorage.removeItem("@TOKEN");
-    localStorage.removeItem("@USERID");
-    navigate("/login");
-  };
-
-  const getUser = async () => {
-    try {
-      const response = await api.get(`users/${userId}`);
-      setUser(response.data);
-    } catch (error) {
-      const notify = () => toast.error("Erro ao localizar o usuário");
-      notify();
-      setUser({});
-    }
-  };
-
-  return (
+  return user ? (
     <StyledHomePage>
       <section>
         <Container>
-          <Navbar labelButton="Sair" onClick={logout} />
+          <Navbar labelButton="Sair" onClick={onLogout} />
         </Container>
       </section>
       <section>
         <Container>
-          <Header user={user} />
+          <Header />
         </Container>
       </section>
-      <Container>
-        <UnderDevelopment />
-      </Container>
+      <MainHome />
     </StyledHomePage>
+  ) : (
+    <Navigate to="/" />
   );
 };

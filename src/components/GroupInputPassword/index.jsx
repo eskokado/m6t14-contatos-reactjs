@@ -8,6 +8,8 @@ export const GroupInputPassword = ({
   helperMessage,
   field,
   register,
+  defaultValues,
+  disabled = false,
 }) => {
   return (
     <StyledGroupInputPassword>
@@ -18,6 +20,8 @@ export const GroupInputPassword = ({
         placeholder={placeholder}
         register={register}
         field={field}
+        defaultValues={defaultValues}
+        disabled={disabled}
       />
       {helperMessage && (
         <Typography fonttype="helper" fontcolor="negative">
