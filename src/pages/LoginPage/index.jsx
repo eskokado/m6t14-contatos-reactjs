@@ -12,11 +12,15 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "react-toastify/dist/ReactToastify.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
 export const LoginPage = () => {
-  const { loading, onLogin } = useContext(UserContext);
+  const { loading, onLogin, autoLogin } = useContext(UserContext);
+
+  useEffect(() => {
+    autoLogin();
+  }, []);
 
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;

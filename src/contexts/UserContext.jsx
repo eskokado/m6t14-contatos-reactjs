@@ -12,29 +12,31 @@ export const UserProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const autoLogin = async () => {
-      setLoading(true);
-      const token = localStorage.getItem("@TOKEN");
-      if (!token) {
-        setLoading(false);
-        return;
-      }
-      try {
-        const { data } = await api.get("/profile", {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(data);
-      } catch (error) {
-        localStorage.removeItem("@TOKEN");
-        localStorage.removeItem("@USERID");
-      } finally {
-        setLoading(false);
-      }
-    };
     autoLogin();
   }, []);
+
+  const autoLogin = async () => {
+    setLoading(true);
+    const token = localStorage.getItem("@TOKEN");
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    try {
+      const { data } = await api.get("/profile", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(data);
+      navigate("/home");
+    } catch (error) {
+      localStorage.removeItem("@TOKEN");
+      localStorage.removeItem("@USERID");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const onLogin = async (data) => {
     try {
@@ -103,6 +105,7 @@ export const UserProvider = ({ children }) => {
         onRegister,
         onLogout,
         user,
+        autoLogin,
       }}
     >
       {children}
