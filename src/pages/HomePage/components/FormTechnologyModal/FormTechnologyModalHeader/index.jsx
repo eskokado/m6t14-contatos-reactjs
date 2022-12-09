@@ -5,11 +5,11 @@ import { Typography } from "../../../../../styles/typography";
 import { StyledFormTechnologyModalHeader } from "./styles";
 
 export const FormTechnologyModalHeader = () => {
-  const { setShowTechModal } = useContext(TechContext);
+  const { setShowTechModal, tech } = useContext(TechContext);
   return (
     <StyledFormTechnologyModalHeader>
       <Typography fonttype="title3" fontcolor="grey0" fontweight="semibold">
-        Cadastrar Tecnologia
+        {tech ? "Tecnologia Detalhes" : "Cadastrar Tecnologia"}
       </Typography>
       <Button buttoncolor="grey1" onClick={() => setShowTechModal(false)}>
         X

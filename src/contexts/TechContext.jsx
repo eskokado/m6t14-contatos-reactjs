@@ -9,9 +9,15 @@ export const TechContext = createContext();
 
 export const TechProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
+  const [tech, setTech] = useState(null);
   const [techs, setTechs] = useState([]);
   const [showTechModal, setShowTechModal] = useState(false);
   const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    const token = localStorage.getItem("@TOKEN");
+    api.defaults.headers.common.authorization = `Beader ${token}`;
+  }, []);
 
   useEffect(() => {
     setTechs(user?.techs ? user.techs : []);
@@ -19,8 +25,6 @@ export const TechProvider = ({ children }) => {
 
   const onCreateTech = async (data) => {
     setLoading(true);
-    const token = localStorage.getItem("@TOKEN");
-    api.defaults.headers.common.authorization = `Beader ${token}`;
     try {
       await toast.promise(api.post("/users/techs", data), {
         pending: "Salvando a tecnologia",
@@ -29,6 +33,27 @@ export const TechProvider = ({ children }) => {
       const response = await api.get("/profile");
       setTechs(response.data.techs);
     } catch (error) {
+      const notify = () => toast.error("Ocorreu um erro ao cadastrar");
+      notify();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onUpdateTech = async (data) => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("@TOKEN");
+      api.defaults.headers.common.authorization = `Beader ${token}`;
+      await toast.promise(api.put(`/users/techs/${tech.id}`, data), {
+        pending: "Atualizando a tecnologia",
+        success: "Tecnologia alterado com sucesso!",
+      });
+      const response = await api.get("/profile");
+      setTechs(response.data.techs);
+    } catch (error) {
+      const notify = () => toast.error("Ocorreu um erro ao atualizar");
+      notify();
     } finally {
       setLoading(false);
     }
@@ -36,8 +61,6 @@ export const TechProvider = ({ children }) => {
 
   const onRemoveTech = async (id) => {
     setLoading(true);
-    const token = localStorage.getItem("@TOKEN");
-    api.defaults.headers.common.authorization = `Beader ${token}`;
     try {
       await toast.promise(api.delete(`/users/techs/${id}`), {
         pending: "Deletando a tecnologia",
@@ -46,6 +69,8 @@ export const TechProvider = ({ children }) => {
       const response = await api.get("/profile");
       setTechs(response.data.techs);
     } catch (error) {
+      const notify = () => toast.error("Ocorreu um erro ao deletar");
+      notify();
     } finally {
       setLoading(false);
     }
@@ -54,13 +79,16 @@ export const TechProvider = ({ children }) => {
   return (
     <TechContext.Provider
       value={{
-        showTechModal,
-        setShowTechModal,
-        onCreateTech,
         loading,
-        onRemoveTech,
+        showTechModal,
+        tech,
+        setTech,
         techs,
         setTechs,
+        setShowTechModal,
+        onCreateTech,
+        onUpdateTech,
+        onRemoveTech,
       }}
     >
       {children}

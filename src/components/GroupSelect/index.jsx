@@ -8,16 +8,23 @@ export const GroupSelect = ({
   helperMessage,
   field,
   register,
-  children,
+  defaultValues,
+  disabled,
+  options,
 }) => {
   return (
     <StyledGroupInput>
       <Typography fonttype="headline" fontcolor="grey0">
         {label}
       </Typography>
-      <Select placeholder={placeholder} register={register} field={field}>
-        {children}
-      </Select>
+      <Select
+        placeholder={placeholder}
+        register={register}
+        field={field}
+        defaultValues={defaultValues}
+        disabled={disabled}
+        options={options}
+      ></Select>
       {helperMessage && (
         <Typography fonttype="helper" fontcolor="negative">
           {helperMessage}

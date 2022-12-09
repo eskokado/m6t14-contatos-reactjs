@@ -10,4 +10,10 @@ export const StyledCardTechnology = styled.li`
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 `;

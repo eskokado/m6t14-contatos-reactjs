@@ -40,6 +40,11 @@ export const LoginPage = () => {
     mode: "onChange",
   });
 
+  const defaultValues = {
+    email: "",
+    password: "",
+  };
+
   return (
     <StyledLoginPage>
       <Logo src={logo} alt="Kenzie hub" />
@@ -53,6 +58,7 @@ export const LoginPage = () => {
           helperMessage={errors.email?.message && errors.email.message}
           field="email"
           register={register}
+          defaultValues={defaultValues}
         />
         <GroupInputPassword
           label="Senha"
@@ -60,6 +66,7 @@ export const LoginPage = () => {
           helperMessage={errors.password?.message && errors.password.message}
           field="password"
           register={register}
+          defaultValues={defaultValues}
         />
         <Button
           type="submit"

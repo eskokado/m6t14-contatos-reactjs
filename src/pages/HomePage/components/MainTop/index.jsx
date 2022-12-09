@@ -6,8 +6,9 @@ import { useContext } from "react";
 import { TechContext } from "../../../../contexts/TechContext";
 
 export const MainTop = () => {
-  const { setShowTechModal } = useContext(TechContext);
+  const { setShowTechModal, setTech } = useContext(TechContext);
   const handleShowModal = () => {
+    setTech(null);
     setShowTechModal(true);
   };
 

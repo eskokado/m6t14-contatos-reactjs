@@ -9,12 +9,28 @@ import { useContext } from "react";
 import { TechContext } from "../../../../../contexts/TechContext";
 
 export const FormTechnologyModalContent = () => {
-  const { loading, onCreateTech, setShowTechModal } = useContext(TechContext);
+  const {
+    loading,
+    onCreateTech,
+    setShowTechModal,
+    tech,
+    onUpdateTech,
+    onRemoveTech,
+  } = useContext(TechContext);
 
-  const formSchema = yup.object().shape({
-    title: yup.string().required("Título é obrigatório"),
-    status: yup.string().required("Nível é obrigatório"),
-  });
+  const formSchema = tech
+    ? yup.object().shape({
+        status: yup.string().required("Nível é obrigatório"),
+      })
+    : yup.object().shape({
+        title: yup.string().required("Título é obrigatório"),
+        status: yup.string().required("Nível é obrigatório"),
+      });
+
+  const defaultValues = {
+    title: tech?.title ?? "",
+    status: tech?.status ?? "",
+  };
 
   const {
     register,
@@ -26,9 +42,26 @@ export const FormTechnologyModalContent = () => {
   });
 
   const onSubmitFunction = (data) => {
-    onCreateTech(data);
+    if (tech) {
+      delete data.title;
+      onUpdateTech(data);
+    } else {
+      onCreateTech(data);
+    }
     setShowTechModal(false);
   };
+
+  const handleRemove = (id) => {
+    onRemoveTech(id);
+    setShowTechModal(false);
+  };
+
+  const optionsStatus = [
+    { value: "", text: "Seleciona um status" },
+    { value: "Iniciante", text: "Iniciante" },
+    { value: "Intermediário", text: "Intermediário" },
+    { value: "Avançado", text: "Avançado" },
+  ];
 
   return (
     <StyledFormTechnologyModalContent onSubmit={handleSubmit(onSubmitFunction)}>
@@ -37,6 +70,8 @@ export const FormTechnologyModalContent = () => {
         placeholder="Digite aqui o título"
         helperMessage={errors.title?.message && errors.title.message}
         field="title"
+        disabled={tech ? true : false}
+        defaultValues={defaultValues}
         register={register}
       />
       <GroupSelect
@@ -44,22 +79,42 @@ export const FormTechnologyModalContent = () => {
         placeholder="Seleciona um status"
         helperMessage={errors.status?.message && errors.status.message}
         field="status"
+        defaultValues={defaultValues}
         register={register}
-      >
-        <option value="">Seleciona um status</option>
-        <option>Iniciante</option>
-        <option>Intermediário</option>
-        <option>Avançado</option>
-      </GroupSelect>
-      <Button
-        type="submit"
-        buttoncolor="primary50"
-        buttonwidth="max"
-        buttonstyle="default"
-        disabled={loading}
-      >
-        {loading ? "Cadastrando..." : "Cadastrar Tecnologia"}
-      </Button>
+        disabled={false}
+        options={optionsStatus}
+      ></GroupSelect>
+      {tech ? (
+        <div>
+          <Button
+            type="submit"
+            buttoncolor="primary50"
+            buttonstyle="default"
+            disabled={loading}
+          >
+            {loading ? "Alterando..." : "Salvar alterações"}
+          </Button>
+          <Button
+            type="button"
+            buttoncolor="grey1"
+            buttonstyle="default"
+            disabled={loading}
+            onClick={() => handleRemove(tech.id)}
+          >
+            {loading ? "Excluindo..." : "Excluir"}
+          </Button>
+        </div>
+      ) : (
+        <Button
+          type="submit"
+          buttoncolor="primary50"
+          buttonwidth="max"
+          buttonstyle="default"
+          disabled={loading}
+        >
+          {loading ? "Cadastrando..." : "Cadastrar Tecnologia"}
+        </Button>
+      )}
     </StyledFormTechnologyModalContent>
   );
 };
