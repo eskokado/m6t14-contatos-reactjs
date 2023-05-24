@@ -1,8 +1,8 @@
-import { ToastContainer } from "react-toastify";
-import { TechProvider } from "./contexts/TechContext";
-import { UserProvider } from "./contexts/UserContext";
-import { RoutesMain } from "./routes";
-import Global from "./styles/global";
+import { ToastContainer } from 'react-toastify'
+import { TechProvider } from './contexts/ContactContext'
+import { UserProvider } from './contexts/UserContext'
+import { RoutesMain } from './routes'
+import Global from './styles/global'
 
 function App() {
   return (
@@ -13,9 +13,9 @@ function App() {
           <RoutesMain />
         </TechProvider>
       </UserProvider>
-      <ToastContainer position="top-center" />
+      <ToastContainer position='top-center' />
     </>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export const StyledFormTechnologyModalContent = styled.form`
+export const StyledFormContactModalContent = styled.form`
   display: flex;
   flex-direction: column;
   background-color: var(--color-grey-3);
@@ -11,4 +11,4 @@ export const StyledFormTechnologyModalContent = styled.form`
     display: flex;
     justify-content: space-between;
   }
-`;
+`

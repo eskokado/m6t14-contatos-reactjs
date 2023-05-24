@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export const StyledFormTechnologyModal = styled.section`
+export const StyledFormContactModal = styled.section`
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@ export const StyledFormTechnologyModal = styled.section`
     width: 100%;
     margin: 1rem;
   }
-`;
+`
 
 export const StyledModalWrapper = styled.section`
   position: fixed;
@@ -29,4 +29,4 @@ export const StyledModalWrapper = styled.section`
   @media (max-width: 400px) {
     padding: 1rem;
   }
-`;
+`
