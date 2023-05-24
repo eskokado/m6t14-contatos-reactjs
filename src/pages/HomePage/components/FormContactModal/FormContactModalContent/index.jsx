@@ -11,25 +11,36 @@ import { ContactContext } from '../../../../../contexts/ContactContext'
 export const FormContactModalContent = () => {
   const {
     loading,
-    onCreateTech,
+    onCreateContact,
     setShowTechModal,
-    tech,
+    contact,
     onUpdateTech,
     onRemoveTech
   } = useContext(ContactContext)
 
-  const formSchema = tech
-    ? yup.object().shape({
-        status: yup.string().required('Nível é obrigatório')
-      })
-    : yup.object().shape({
-        title: yup.string().required('Título é obrigatório'),
-        status: yup.string().required('Nível é obrigatório')
-      })
+  const passwordRegExp =
+    /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/
+
+  const formSchema = yup.object().shape({
+    email: yup.string().required('E-mail obrigatório').email('E-mail inválido'),
+    name: yup
+      .string()
+      .required('Nome obrigatório')
+      .min(3, 'O nome precisa ter pelo 3 caracteres.')
+      .max(200, 'O nome pode ter no máximo 200 caracteres.'),
+    password: yup
+      .string()
+      .required('Senha obrigatório')
+      .matches(
+        passwordRegExp,
+        'A senha deve conter pelo menos 8 caracteres, uma maiúscula, um número e um caractere especial'
+      )
+  })
 
   const defaultValues = {
-    title: tech?.title ?? '',
-    status: tech?.status ?? ''
+    name: contact?.name ?? '',
+    email: contact?.email ?? '',
+    password: contact?.password ?? ''
   }
 
   const {
@@ -42,11 +53,12 @@ export const FormContactModalContent = () => {
   })
 
   const onSubmitFunction = (data) => {
-    if (tech) {
+    if (contact) {
       delete data.title
       onUpdateTech(data)
     } else {
-      onCreateTech(data)
+      onCreateContact(data)
+      console.log(data)
     }
     setShowTechModal(false)
   }
@@ -56,35 +68,46 @@ export const FormContactModalContent = () => {
     setShowTechModal(false)
   }
 
-  const optionsStatus = [
-    { value: '', text: 'Seleciona um status' },
-    { value: 'Iniciante', text: 'Iniciante' },
-    { value: 'Intermediário', text: 'Intermediário' },
-    { value: 'Avançado', text: 'Avançado' }
-  ]
-
   return (
     <StyledFormContactModalContent onSubmit={handleSubmit(onSubmitFunction)}>
       <GroupInput
-        label='Título'
-        placeholder='Digite aqui o título'
-        helperMessage={errors.title?.message && errors.title.message}
-        field='title'
-        disabled={tech ? true : false}
+        label='Nome'
+        placeholder='Digite aqui o nome'
+        helperMessage={errors.name?.message && errors.name.message}
+        field='name'
+        disabled={contact ? true : false}
         defaultValues={defaultValues}
         register={register}
       />
-      <GroupSelect
-        label='Selecionar status'
+      <GroupInput
+        label='Email'
+        placeholder='Digite aqui o email'
+        helperMessage={errors.email?.message && errors.email.message}
+        field='email'
+        disabled={contact ? true : false}
+        defaultValues={defaultValues}
+        register={register}
+      />
+      <GroupInput
+        label='Password'
+        placeholder='Digite aqui a senha'
+        helperMessage={errors.password?.message && errors.password.message}
+        field='password'
+        disabled={contact ? true : false}
+        defaultValues={defaultValues}
+        register={register}
+      />
+      {/* <GroupSelect
+        label='Selecionar Customer'
         placeholder='Seleciona um status'
         helperMessage={errors.status?.message && errors.status.message}
         field='status'
         defaultValues={defaultValues}
         register={register}
         disabled={false}
-        options={optionsStatus}
-      ></GroupSelect>
-      {tech ? (
+        // options={optionsStatus}
+      ></GroupSelect> */}
+      {contact ? (
         <div>
           <Button
             type='submit'
@@ -99,7 +122,7 @@ export const FormContactModalContent = () => {
             buttoncolor='grey1'
             buttonstyle='default'
             disabled={loading}
-            onClick={() => handleRemove(tech.id)}
+            onClick={() => handleRemove(contact.id)}
           >
             {loading ? 'Excluindo...' : 'Excluir'}
           </Button>

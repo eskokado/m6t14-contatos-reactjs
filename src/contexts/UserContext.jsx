@@ -8,7 +8,7 @@ export const UserContext = createContext({})
 
 export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
+  const [customer, setCustomer] = useState(null)
   const navigate = useNavigate()
 
   // useEffect(() => {
@@ -17,18 +17,18 @@ export const UserProvider = ({ children }) => {
 
   // const autoLogin = async () => {
   //   setLoading(true)
-  //   const token = localStorage.getItem('@TOKEN')
-  //   if (!token) {
-  //     setLoading(false)
-  //     return
-  //   }
+  //   // const token = localStorage.getItem('@TOKEN')
+  //   // if (!token) {
+  //   //   setLoading(false)
+  //   //   return
+  //   // }
   //   try {
-  //     const { data } = await api.get('/profile', {
-  //       headers: {
-  //         authorization: `Bearer ${token}`
-  //       }
+  //     const { data } = await api.get('/customer/1', {
+  //       // headers: {
+  //       //   authorization: `Bearer ${token}`
+  //       // }
   //     })
-  //     setUser(data)
+  //     setCustomer(data)
   //     navigate('/home')
   //   } catch (error) {
   //     localStorage.removeItem('@TOKEN')
@@ -44,7 +44,7 @@ export const UserProvider = ({ children }) => {
       const response = await api.post('sessions', data)
       localStorage.setItem('@TOKEN', response.data.token)
       localStorage.setItem('@USERID', response.data.user.id)
-      setUser(response.data.user)
+      setCustomer(response.data.customer)
       const loggedSuccess = () => navigate('/home')
       loggedSuccess()
     } catch (error) {
@@ -72,7 +72,7 @@ export const UserProvider = ({ children }) => {
   const onLogout = () => {
     localStorage.removeItem('@TOKEN')
     localStorage.removeItem('@USERID')
-    setUser(null)
+    setCustomer(null)
     navigate('/login')
   }
 
@@ -81,11 +81,11 @@ export const UserProvider = ({ children }) => {
     const userId = localStorage.getItem('@USERID')
     try {
       const response = await api.get(`users/${userId}`)
-      setUser(response.data)
+      setCustomer(response.data)
     } catch (error) {
       const notify = () => toast.error('Erro ao localizar o usuário')
       notify()
-      setUser({})
+      setCustomer({})
     } finally {
       setLoading(false)
     }

@@ -1,4 +1,4 @@
-import { StyledSelect } from "./styles";
+import { StyledSelect } from './styles'
 
 export const Select = ({
   placeholder,
@@ -6,7 +6,7 @@ export const Select = ({
   field,
   defaultValues,
   disabled,
-  options,
+  options
 }) => {
   return (
     <StyledSelect
@@ -26,5 +26,5 @@ export const Select = ({
         )
       )}
     </StyledSelect>
-  );
-};
+  )
+}

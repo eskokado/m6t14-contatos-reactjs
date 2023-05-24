@@ -12,23 +12,23 @@ export const TechProvider = ({ children }) => {
   const [tech, setTech] = useState(null)
   const [techs, setTechs] = useState([])
   const [showTechModal, setShowTechModal] = useState(false)
-  const { user } = useContext(UserContext)
+  // const { user } = useContext(UserContext)
 
-  useEffect(() => {
-    setTechs(user?.techs ? user.techs : [])
-  }, [user])
+  // useEffect(() => {
+  //   setTechs(user?.techs ? user.techs : [])
+  // }, [user])
 
-  const onCreateTech = async (data) => {
-    const token = localStorage.getItem('@TOKEN')
-    api.defaults.headers.common.authorization = `Beader ${token}`
+  const onCreateContact = async (data) => {
+    // const token = localStorage.getItem('@TOKEN')
+    // api.defaults.headers.common.authorization = `Beader ${token}`
     setLoading(true)
     try {
-      await toast.promise(api.post('/users/techs', data), {
-        pending: 'Salvando a tecnologia',
-        success: 'Contato salvo com sucesso!'
-      })
-      const response = await api.get('/profile')
-      setTechs(response.data.techs)
+      const customerId = 'af3daca9-1c19-4268-b329-981ea1c41b6f'
+      const data01 = { ...data, customerId }
+      console.log(data01)
+      await api.post('/contacts', data01)
+      // const response = await api.get('/profile')
+      // setTechs(response.data.techs)
     } catch (error) {
       const notify = () => toast.error('Ocorreu um erro ao cadastrar')
       notify()
@@ -45,7 +45,7 @@ export const TechProvider = ({ children }) => {
       const token = localStorage.getItem('@TOKEN')
       api.defaults.headers.common.authorization = `Beader ${token}`
       await toast.promise(api.put(`/users/techs/${tech.id}`, data), {
-        pending: 'Atualizando a tecnologia',
+        pending: 'Atualizando a contato',
         success: 'Contato alterado com sucesso!'
       })
       const response = await api.get('/profile')
@@ -64,7 +64,7 @@ export const TechProvider = ({ children }) => {
     setLoading(true)
     try {
       await toast.promise(api.delete(`/users/techs/${id}`), {
-        pending: 'Deletando a tecnologia',
+        pending: 'Deletando a contato',
         success: 'Contato deletado com sucesso!'
       })
       const response = await api.get('/profile')
@@ -87,7 +87,7 @@ export const TechProvider = ({ children }) => {
         techs,
         setTechs,
         setShowTechModal,
-        onCreateTech,
+        onCreateContact,
         onUpdateTech,
         onRemoveTech
       }}
