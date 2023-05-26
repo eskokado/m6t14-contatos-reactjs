@@ -5,21 +5,21 @@ import { Button } from '../../../../styles/buttons'
 import { useContext } from 'react'
 import { ContactContext } from '../../../../contexts/ContactContext'
 
-export const CardContact = ({ tech }) => {
-  const { setShowTechModal, setTech } = useContext(ContactContext)
+export const CardContact = ({ contact }) => {
+  const { setShowContactModal, setContact } = useContext(ContactContext)
   const handleShowModal = () => {
-    setTech(tech)
-    setShowTechModal(true)
+    setContact(contact)
+    setShowContactModal(true)
   }
 
   return (
     <StyledCardContact onClick={handleShowModal}>
       <div>
         <Typography fonttype='title3' fontcolor='grey0'>
-          {tech.title}
+          {contact.name}
         </Typography>
         <Typography fonttype='headline' fontcolor='grey1'>
-          {tech.status}
+          {contact.email}
         </Typography>
       </div>
     </StyledCardContact>

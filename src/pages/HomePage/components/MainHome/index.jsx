@@ -8,7 +8,7 @@ import { MainTop } from '../MainTop'
 import { StyledMainHome } from './styles'
 
 export const MainHome = () => {
-  const { showTechModal } = useContext(ContactContext)
+  const { showContactModal } = useContext(ContactContext)
   return (
     <>
       <StyledMainHome>
@@ -19,7 +19,7 @@ export const MainHome = () => {
           </Container>
         </section>
       </StyledMainHome>
-      {showTechModal && (
+      {showContactModal && (
         <StyledModalWrapper>
           <FormContactModal></FormContactModal>
         </StyledModalWrapper>

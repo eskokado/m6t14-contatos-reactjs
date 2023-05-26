@@ -1,18 +1,18 @@
 import { useContext } from 'react'
 import { EmptyContact } from '../EmptyContact'
 import { CardContact } from '../CardContact'
-import { StyledCardListTecno } from './styles'
+import { StyledCardListContact } from './styles'
 import { ContactContext } from '../../../../contexts/ContactContext'
 
 export const CardListContact = () => {
-  const { techs } = useContext(ContactContext)
+  const { contacts } = useContext(ContactContext)
   return (
-    <StyledCardListTecno>
-      {techs.length > 0 ? (
-        techs.map((tech) => <CardContact key={tech.id} tech={tech} />)
+    <StyledCardListContact>
+      {contacts.length > 0 ? (
+        contacts.map((contact) => <CardContact key={contact.id} contact={contact} />)
       ) : (
         <EmptyContact />
       )}
-    </StyledCardListTecno>
+    </StyledCardListContact>
   )
 }

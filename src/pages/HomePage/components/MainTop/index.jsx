@@ -6,10 +6,10 @@ import { useContext } from 'react'
 import { ContactContext } from '../../../../contexts/ContactContext'
 
 export const MainTop = () => {
-  const { setShowTechModal, setTech } = useContext(ContactContext)
+  const { setShowContactModal, setContact } = useContext(ContactContext)
   const handleShowModal = () => {
-    setTech(null)
-    setShowTechModal(true)
+    setContact(null)
+    setShowContactModal(true)
   }
 
   return (

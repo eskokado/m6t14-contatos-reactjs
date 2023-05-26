@@ -7,15 +7,15 @@ import { GroupSelect } from '../../../../../components/GroupSelect'
 import { Button } from '../../../../../styles/buttons'
 import { useContext } from 'react'
 import { ContactContext } from '../../../../../contexts/ContactContext'
+import {GroupInputPassword} from "../../../../../components/GroupInputPassword";
 
 export const FormContactModalContent = () => {
   const {
-    loading,
     onCreateContact,
-    setShowTechModal,
+    setShowContactModal,
     contact,
-    onUpdateTech,
-    onRemoveTech
+    onUpdateContact,
+    onRemoveContact
   } = useContext(ContactContext)
 
   const passwordRegExp =
@@ -55,17 +55,16 @@ export const FormContactModalContent = () => {
   const onSubmitFunction = (data) => {
     if (contact) {
       delete data.title
-      onUpdateTech(data)
+      onUpdateContact(data)
     } else {
       onCreateContact(data)
-      console.log(data)
     }
-    setShowTechModal(false)
+    setShowContactModal(false)
   }
 
   const handleRemove = (id) => {
-    onRemoveTech(id)
-    setShowTechModal(false)
+    onRemoveContact(id)
+    setShowContactModal(false)
   }
 
   return (
@@ -88,43 +87,32 @@ export const FormContactModalContent = () => {
         defaultValues={defaultValues}
         register={register}
       />
-      <GroupInput
-        label='Password'
-        placeholder='Digite aqui a senha'
-        helperMessage={errors.password?.message && errors.password.message}
-        field='password'
-        disabled={contact ? true : false}
-        defaultValues={defaultValues}
-        register={register}
+      <GroupInputPassword
+          label='Password'
+          placeholder='Digite sua senha'
+          helperMessage={errors.password?.message && errors.password.message}
+          field='password'
+          register={register}
+          disabled={contact ? true : false}
+          defaultValues={defaultValues}
+          defaultValues={defaultValues}
       />
-      {/* <GroupSelect
-        label='Selecionar Customer'
-        placeholder='Seleciona um status'
-        helperMessage={errors.status?.message && errors.status.message}
-        field='status'
-        defaultValues={defaultValues}
-        register={register}
-        disabled={false}
-        // options={optionsStatus}
-      ></GroupSelect> */}
       {contact ? (
         <div>
           <Button
             type='submit'
             buttoncolor='primary50'
             buttonstyle='default'
-            disabled={loading}
           >
-            {loading ? 'Alterando...' : 'Salvar alterações'}
+            {'Salvar alterações'}
           </Button>
           <Button
             type='button'
             buttoncolor='grey1'
             buttonstyle='default'
-            disabled={loading}
             onClick={() => handleRemove(contact.id)}
           >
-            {loading ? 'Excluindo...' : 'Excluir'}
+            {'Excluir'}
           </Button>
         </div>
       ) : (
@@ -133,9 +121,8 @@ export const FormContactModalContent = () => {
           buttoncolor='primary50'
           buttonwidth='max'
           buttonstyle='default'
-          disabled={loading}
         >
-          {loading ? 'Cadastrando...' : 'Cadastrar Contato'}
+          {'Cadastrar Contato'}
         </Button>
       )}
     </StyledFormContactModalContent>

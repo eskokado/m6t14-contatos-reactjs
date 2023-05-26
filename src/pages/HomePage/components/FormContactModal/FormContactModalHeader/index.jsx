@@ -5,13 +5,13 @@ import { Typography } from '../../../../../styles/typography'
 import { StyledFormContactModalHeader } from './styles'
 
 export const FormContactModalHeader = () => {
-  const { setShowTechModal, tech } = useContext(ContactContext)
+  const { setShowContactModal, tech } = useContext(ContactContext)
   return (
     <StyledFormContactModalHeader>
       <Typography fonttype='title3' fontcolor='grey0' fontweight='semibold'>
         {tech ? 'Contato Detalhes' : 'Cadastrar Contato'}
       </Typography>
-      <Button buttoncolor='grey1' onClick={() => setShowTechModal(false)}>
+      <Button buttoncolor='grey1' onClick={() => setShowContactModal(false)}>
         X
       </Button>
     </StyledFormContactModalHeader>
