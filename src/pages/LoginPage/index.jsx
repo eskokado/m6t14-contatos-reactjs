@@ -18,10 +18,6 @@ import { UserContext } from '../../contexts/UserContext'
 export const LoginPage = () => {
   const { loading, onLogin, autoLogin } = useContext(UserContext)
 
-  useEffect(() => {
-    autoLogin()
-  }, [])
-
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/
   const formSchema = yup.object().shape({

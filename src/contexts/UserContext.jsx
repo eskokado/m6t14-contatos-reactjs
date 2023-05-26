@@ -11,40 +11,13 @@ export const UserProvider = ({ children }) => {
   const [customer, setCustomer] = useState(null)
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   autoLogin()
-  // }, [])
-
-  // const autoLogin = async () => {
-  //   setLoading(true)
-  //   // const token = localStorage.getItem('@TOKEN')
-  //   // if (!token) {
-  //   //   setLoading(false)
-  //   //   return
-  //   // }
-  //   try {
-  //     const { data } = await api.get('/customer/1', {
-  //       // headers: {
-  //       //   authorization: `Bearer ${token}`
-  //       // }
-  //     })
-  //     setCustomer(data)
-  //     navigate('/home')
-  //   } catch (error) {
-  //     localStorage.removeItem('@TOKEN')
-  //     localStorage.removeItem('@USERID')
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
-
   const onLogin = async (data) => {
     try {
       setLoading(true)
-      const response = await api.post('sessions', data)
+      const response = await api.post('login', data)
       localStorage.setItem('@TOKEN', response.data.token)
-      localStorage.setItem('@USERID', response.data.user.id)
-      setCustomer(response.data.customer)
+      localStorage.setItem('@CUSTOMERID', response.data.customer.id)
+      await getCustomer()
       const loggedSuccess = () => navigate('/home')
       loggedSuccess()
     } catch (error) {
@@ -58,11 +31,12 @@ export const UserProvider = ({ children }) => {
   const onRegister = async (data) => {
     try {
       setLoading(true)
+      delete data['confirmPassword']
       await api.post('customers', data)
       const registeredSuccess = () => navigate('/login')
       registeredSuccess()
     } catch (error) {
-      const notify = () => toast.error('Não foi possível cadastrar o usuário')
+      const notify = () => toast.error('Não foi possível cadastrar o usuário', error)
       notify()
     } finally {
       setLoading(false)
@@ -71,19 +45,23 @@ export const UserProvider = ({ children }) => {
 
   const onLogout = () => {
     localStorage.removeItem('@TOKEN')
-    localStorage.removeItem('@USERID')
+    localStorage.removeItem('@CUSTOMERID')
     setCustomer(null)
     navigate('/login')
   }
 
-  const getUser = async () => {
+  const getCustomer = async () => {
     setLoading(true)
-    const userId = localStorage.getItem('@USERID')
+    const customerId = localStorage.getItem('@CUSTOMERID')
+    const token = localStorage.getItem('@TOKEN')
     try {
-      const response = await api.get(`users/${userId}`)
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+      const response = await api.get(`customers/${customerId}`, config)
       setCustomer(response.data)
     } catch (error) {
-      const notify = () => toast.error('Erro ao localizar o usuário')
+      const notify = () => toast.error('Erro ao localizar o cliente')
       notify()
       setCustomer({})
     } finally {
@@ -97,8 +75,9 @@ export const UserProvider = ({ children }) => {
         // loading,
         onLogin,
         onRegister,
-        onLogout
-        // user,
+        onLogout,
+        customer,
+        setCustomer,
         // autoLogin
       }}
     >
