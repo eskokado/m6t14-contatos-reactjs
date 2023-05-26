@@ -47,8 +47,9 @@ export const ContactProvider = ({ children }) => {
     }
     setLoading(true)
     try {
-      data.customerId = customerId
-      await api.put(`/contacts/${contact.id}`, data, config)
+      delete data['email']
+      delete data['password']
+      await api.patch(`/contacts/${contact.id}`, data, config)
     } catch (error) {
       const notify = () => toast.error('Ocorreu um erro ao atualizar')
       notify()

@@ -21,7 +21,7 @@ export const FormContactModalContent = () => {
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/
 
-  const formSchema = yup.object().shape({
+  const formSchemaCreate = yup.object().shape({
     email: yup.string().required('E-mail obrigatório').email('E-mail inválido'),
     name: yup
       .string()
@@ -37,6 +37,14 @@ export const FormContactModalContent = () => {
       )
   })
 
+  const formSchemaUpdate = yup.object().shape({
+    name: yup
+        .string()
+        .required('Nome obrigatório')
+        .min(3, 'O nome precisa ter pelo 3 caracteres.')
+        .max(200, 'O nome pode ter no máximo 200 caracteres.'),
+  })
+
   const defaultValues = {
     name: contact?.name ?? '',
     email: contact?.email ?? '',
@@ -48,7 +56,7 @@ export const FormContactModalContent = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(contact ? formSchemaUpdate : formSchemaCreate),
     mode: 'onChange'
   })
 
@@ -74,7 +82,6 @@ export const FormContactModalContent = () => {
         placeholder='Digite aqui o nome'
         helperMessage={errors.name?.message && errors.name.message}
         field='name'
-        disabled={contact ? true : false}
         defaultValues={defaultValues}
         register={register}
       />
