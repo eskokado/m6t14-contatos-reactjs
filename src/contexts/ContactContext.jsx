@@ -7,72 +7,73 @@ import { UserContext } from './UserContext'
 
 export const ContactContext = createContext()
 
-export const TechProvider = ({ children }) => {
+export const ContactProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
-  const [tech, setTech] = useState(null)
-  const [techs, setTechs] = useState([])
-  const [showTechModal, setShowTechModal] = useState(false)
-  // const { user } = useContext(UserContext)
+  const [contact, setContact] = useState(null)
+  const [contacts, setContacts] = useState([])
+  const [showContactModal, setShowContactModal] = useState(false)
+  const { customer, setCustomer } = useContext(UserContext)
 
-  // useEffect(() => {
-  //   setTechs(user?.techs ? user.techs : [])
-  // }, [user])
+  useEffect(() => {
+    setContacts(customer?.contacts ?? [])
+  }, [customer])
 
   const onCreateContact = async (data) => {
-    // const token = localStorage.getItem('@TOKEN')
-    // api.defaults.headers.common.authorization = `Beader ${token}`
+    const token = localStorage.getItem('@TOKEN')
+    const customerId = localStorage.getItem('@CUSTOMERID')
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
     setLoading(true)
     try {
-      const customerId = 'af3daca9-1c19-4268-b329-981ea1c41b6f'
-      const data01 = { ...data, customerId }
-      console.log(data01)
-      await api.post('/contacts', data01)
-      // const response = await api.get('/profile')
-      // setTechs(response.data.techs)
+      const dataCreate = { ...data }
+      dataCreate.customerId = customerId
+      await api.post('/contacts', dataCreate, config)
     } catch (error) {
       const notify = () => toast.error('Ocorreu um erro ao cadastrar')
       notify()
     } finally {
+      const response = await api.get(`/customers/${customerId}`, config)
+      setCustomer(response.data)
       setLoading(false)
     }
   }
 
-  const onUpdateTech = async (data) => {
+  const onUpdateContact = async (data) => {
     const token = localStorage.getItem('@TOKEN')
-    api.defaults.headers.common.authorization = `Beader ${token}`
+    const customerId = localStorage.getItem('@CUSTOMERID')
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
     setLoading(true)
     try {
-      const token = localStorage.getItem('@TOKEN')
-      api.defaults.headers.common.authorization = `Beader ${token}`
-      await toast.promise(api.put(`/users/techs/${tech.id}`, data), {
-        pending: 'Atualizando a contato',
-        success: 'Contato alterado com sucesso!'
-      })
-      const response = await api.get('/profile')
-      setTechs(response.data.techs)
+      data.customerId = customerId
+      await api.put(`/contacts/${contact.id}`, data, config)
     } catch (error) {
       const notify = () => toast.error('Ocorreu um erro ao atualizar')
       notify()
     } finally {
+      const response = await api.get(`/customers/${customerId}`, config)
+      setCustomer(response.data)
       setLoading(false)
     }
   }
 
-  const onRemoveTech = async (id) => {
+  const onRemoveContact = async (id) => {
     const token = localStorage.getItem('@TOKEN')
-    api.defaults.headers.common.authorization = `Beader ${token}`
+    const customerId = localStorage.getItem('@CUSTOMERID')
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
     setLoading(true)
     try {
-      await toast.promise(api.delete(`/users/techs/${id}`), {
-        pending: 'Deletando a contato',
-        success: 'Contato deletado com sucesso!'
-      })
-      const response = await api.get('/profile')
-      setTechs(response.data.techs)
+      await api.delete(`/contacts/${id}`, config)
     } catch (error) {
       const notify = () => toast.error('Ocorreu um erro ao deletar')
       notify()
     } finally {
+      const response = await api.get(`/customers/${customerId}`, config)
+      setCustomer(response.data)
       setLoading(false)
     }
   }
@@ -81,15 +82,15 @@ export const TechProvider = ({ children }) => {
     <ContactContext.Provider
       value={{
         loading,
-        showTechModal,
-        tech,
-        setTech,
-        techs,
-        setTechs,
-        setShowTechModal,
+        showContactModal,
+        contact,
+        setContact,
+        contacts,
+        setContacts,
+        setShowContactModal,
         onCreateContact,
-        onUpdateTech,
-        onRemoveTech
+        onUpdateContact,
+        onRemoveContact
       }}
     >
       {children}
