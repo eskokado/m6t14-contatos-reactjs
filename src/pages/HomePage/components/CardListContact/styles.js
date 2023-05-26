@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledCardListTecno = styled.ul`
+export const StyledCardListContact = styled.ul`
   background-color: var(--color-grey-3);
   padding: 1rem;
   border-radius: 0.5rem;
