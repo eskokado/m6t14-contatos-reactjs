@@ -36,7 +36,8 @@ export const UserProvider = ({ children }) => {
       const registeredSuccess = () => navigate('/login')
       registeredSuccess()
     } catch (error) {
-      const notify = () => toast.error('Não foi possível cadastrar o usuário', error)
+      const notify = () =>
+        toast.error('Não foi possível cadastrar o usuário', error)
       notify()
     } finally {
       setLoading(false)
@@ -48,6 +49,11 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem('@CUSTOMERID')
     setCustomer(null)
     navigate('/login')
+  }
+
+  const onCustomerPrint = () => {
+    getCustomer()
+    navigate('/customer-print')
   }
 
   const getCustomer = async () => {
@@ -78,6 +84,8 @@ export const UserProvider = ({ children }) => {
         onLogout,
         customer,
         setCustomer,
+        onCustomerPrint,
+        getCustomer
         // autoLogin
       }}
     >
