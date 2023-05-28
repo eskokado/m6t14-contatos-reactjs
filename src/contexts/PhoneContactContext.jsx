@@ -11,7 +11,6 @@ export const PhoneContactProvider = ({ children }) => {
 
   useEffect(() => {
     setPhonesContact(contact?.phones ?? [])
-    console.log('PhoneContactProvider - phonesContact', phonesContact)
   }, [contact])
 
   return (

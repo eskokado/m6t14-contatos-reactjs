@@ -8,7 +8,6 @@ export const CardPhoneContact = ({ cardPhoneContact }) => {
   const { setPhoneContact, setShowPhoneContactModal } = useContext(PhoneContactContext)
   const handleShowModal = () => {
     setPhoneContact(cardPhoneContact)
-    console.log('CardPhoneContact - cardPhoneContact', cardPhoneContact)
     setShowPhoneContactModal(true)
   }
 
