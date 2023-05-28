@@ -9,6 +9,7 @@ export const CustomerContext = createContext({})
 export const CustomerProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [customer, setCustomer] = useState(null)
+  const [showCustomerModal, setShowCustomerModal] = useState(false)
   const navigate = useNavigate()
 
   const onLogin = async (data) => {
@@ -46,6 +47,31 @@ export const CustomerProvider = ({ children }) => {
     }
   }
 
+
+  const onUpdateCustomer = async (data) => {
+    const token = localStorage.getItem('@TOKEN')
+    const customerId = localStorage.getItem('@CUSTOMERID')
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+    setLoading(true)
+    try {
+      delete data['email']
+      delete data['password']
+      await api.patch(`/customers/${customer.id}`, data, config)
+      const notify = () => toast.success('Profile alterado com sucesso.')
+      notify()
+    } catch (error) {
+      const notify = () => toast.error('Ocorreu um erro ao atualizar')
+      notify()
+    } finally {
+      const response = await api.get(`/customers/${customerId}`, config)
+      setCustomer(response.data)
+      setLoading(false)
+    }
+  }
+
+
   const onLogout = () => {
     localStorage.removeItem('@TOKEN')
     localStorage.removeItem('@CUSTOMERID')
@@ -56,6 +82,12 @@ export const CustomerProvider = ({ children }) => {
   const onCustomerPrint = () => {
     getCustomer()
     navigate('/customer-print')
+  }
+
+  const onCustomerEdit = () => {
+    setShowCustomerModal(true)
+    getCustomer()
+    console.log('onCustomerEdit')
   }
 
   const getCustomer = async () => {
@@ -87,7 +119,11 @@ export const CustomerProvider = ({ children }) => {
         customer,
         setCustomer,
         onCustomerPrint,
-        getCustomer
+        getCustomer,
+        onCustomerEdit,
+        showCustomerModal,
+        setShowCustomerModal,
+        onUpdateCustomer,
         // autoLogin
       }}
     >
