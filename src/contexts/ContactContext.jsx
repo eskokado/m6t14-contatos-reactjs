@@ -52,6 +52,8 @@ export const ContactProvider = ({ children }) => {
       delete data['email']
       delete data['password']
       await api.patch(`/contacts/${contact.id}`, data, config)
+      const notify = () => toast.success('Contato alterado com sucesso.')
+      notify()
     } catch (error) {
       const notify = () => toast.error('Ocorreu um erro ao atualizar')
       notify()
