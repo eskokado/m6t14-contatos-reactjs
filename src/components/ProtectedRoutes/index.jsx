@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext";
+import { CustomerContext } from "../../contexts/CustomerContext";
 
 export const ProtectedRoutes = () => {
-  const { user, loading } = useContext(UserContext);
+  const { user, loading } = useContext(CustomerContext);
   const location = useLocation();
 
   if (loading) {

@@ -1,6 +1,6 @@
 import { ToastContainer } from 'react-toastify'
 import { ContactProvider } from './contexts/ContactContext'
-import { UserProvider } from './contexts/UserContext'
+import { CustomerProvider } from './contexts/CustomerContext'
 import { RoutesMain } from './routes'
 import Global from './styles/global'
 import {PhoneContactContext, PhoneContactProvider} from "./contexts/PhoneContactContext";
@@ -9,13 +9,13 @@ function App() {
   return (
     <>
       <Global />
-      <UserProvider>
+      <CustomerProvider>
         <ContactProvider>
           <PhoneContactProvider>
             <RoutesMain />
           </PhoneContactProvider>
         </ContactProvider>
-      </UserProvider>
+      </CustomerProvider>
       <ToastContainer position='top-center' />
     </>
   )

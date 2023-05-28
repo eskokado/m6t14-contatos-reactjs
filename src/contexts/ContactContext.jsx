@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { createContext } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../services/api'
-import { UserContext } from './UserContext'
+import { CustomerContext } from './CustomerContext'
 
 export const ContactContext = createContext()
 
@@ -12,7 +12,7 @@ export const ContactProvider = ({ children }) => {
   const [contact, setContact] = useState(null)
   const [contacts, setContacts] = useState([])
   const [showContactModal, setShowContactModal] = useState(false)
-  const { customer, setCustomer } = useContext(UserContext)
+  const { customer, setCustomer } = useContext(CustomerContext)
 
   useEffect(() => {
     setContacts(customer?.contacts ?? [])

@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { api } from '../services/api'
 
-export const UserContext = createContext({})
+export const CustomerContext = createContext({})
 
-export const UserProvider = ({ children }) => {
+export const CustomerProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [customer, setCustomer] = useState(null)
   const navigate = useNavigate()
@@ -78,7 +78,7 @@ export const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider
+    <CustomerContext.Provider
       value={{
         // loading,
         onLogin,
@@ -92,6 +92,6 @@ export const UserProvider = ({ children }) => {
       }}
     >
       {children}
-    </UserContext.Provider>
+    </CustomerContext.Provider>
   )
 }

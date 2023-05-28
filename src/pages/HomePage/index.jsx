@@ -3,13 +3,13 @@
 import { useContext, useEffect } from 'react'
 import { Header } from '../../components/Header'
 import { Navbar } from '../../components/Navbar'
-import { UserContext } from '../../contexts/UserContext'
+import { CustomerContext } from '../../contexts/CustomerContext'
 import { Container } from '../../styles/container'
 import { MainHome } from './components/MainHome'
 import { StyledHomePage } from './styles'
 
 export const HomePage = () => {
-  const { onLogout, onCustomerPrint, getCustomer } = useContext(UserContext)
+  const { onLogout, onCustomerPrint, getCustomer } = useContext(CustomerContext)
 
   useEffect(() => {
     getCustomer()

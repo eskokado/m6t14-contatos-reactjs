@@ -1,10 +1,10 @@
 import { useContext } from 'react'
-import { UserContext } from '../../contexts/UserContext'
+import { CustomerContext } from '../../contexts/CustomerContext'
 import { Typography } from '../../styles/typography'
 import { StyledHeader } from './styles'
 
 export const Header = () => {
-  const { customer } = useContext(UserContext)
+  const { customer } = useContext(CustomerContext)
   return (
     <StyledHeader>
       <Typography fonttype='title1' fontcolor='grey0'>

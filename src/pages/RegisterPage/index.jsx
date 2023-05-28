@@ -10,10 +10,10 @@ import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useContext } from 'react'
-import { UserContext } from '../../contexts/UserContext'
+import { CustomerContext } from '../../contexts/CustomerContext'
 
 export const RegisterPage = () => {
-  const { loading, onRegister } = useContext(UserContext)
+  const { loading, onRegister } = useContext(CustomerContext)
 
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/

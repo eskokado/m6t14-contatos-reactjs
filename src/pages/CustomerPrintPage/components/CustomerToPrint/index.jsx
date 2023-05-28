@@ -1,9 +1,9 @@
 import React from 'react'
-import { UserContext } from '../../../../contexts/UserContext'
+import { CustomerContext } from '../../../../contexts/CustomerContext'
 import {Wrapper, Cab, Subcab, StyledParagraph, FlexColumn, StyledTable} from './styles'
 
 export class CustomerToPrint extends React.Component {
-  static contextType = UserContext
+  static contextType = CustomerContext
   render() {
     const { customer } = this.context
     return (
