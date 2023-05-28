@@ -17,8 +17,8 @@ export const FormPhoneContactModalContent = () => {
     phoneContact,
     phonesContact,
     setPhonesContact,
-    // onUpdateContact,
-    // onRemoveContact
+    onUpdatePhoneContact,
+    onRemovePhoneContact
   } = useContext(PhoneContactContext)
 
   const formSchemaCreate = yup.object().shape({
@@ -62,16 +62,16 @@ export const FormPhoneContactModalContent = () => {
   })
 
   const onSubmitFunction = (data) => {
-    // if (phoneContact) {
-    //   onUpdatePhoneContact(data)
-    // } else {
+    if (phoneContact) {
+      onUpdatePhoneContact(data)
+    } else {
       onCreatePhoneContact(data)
-    // }
+    }
     setShowPhoneContactModal(false)
   }
 
   const handleRemove = (id) => {
-    // onRemovePhoneContact(id)
+    onRemovePhoneContact(id)
     setShowPhoneContactModal(false)
   }
 
