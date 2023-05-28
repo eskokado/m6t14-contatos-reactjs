@@ -6,6 +6,7 @@ export const PhoneContactContext = createContext()
 export const PhoneContactProvider = ({ children }) => {
   const [phonesContact, setPhonesContact] = useState([])
   const [phoneContact, setPhoneContact] = useState(null)
+  const [showPhoneContactModal, setShowPhoneContactModal] = useState(false)
   const { contact, setContact } = useContext(ContactContext)
 
   useEffect(() => {
@@ -20,6 +21,8 @@ export const PhoneContactProvider = ({ children }) => {
         setPhoneContact,
         phonesContact,
         setPhonesContact,
+        showPhoneContactModal,
+        setShowPhoneContactModal,
       }}
     >
       {children}
