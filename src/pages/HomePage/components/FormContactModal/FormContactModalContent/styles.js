@@ -12,3 +12,12 @@ export const StyledFormContactModalContent = styled.form`
     justify-content: space-between;
   }
 `
+
+export const StyledFormSection = styled.section`
+  width: 90%;
+`
+
+export const StyledListSection = styled.section`
+  width: 90%;
+  margin-bottom: 1.5rem;
+`
