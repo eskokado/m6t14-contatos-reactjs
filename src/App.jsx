@@ -3,6 +3,7 @@ import { ContactProvider } from './contexts/ContactContext'
 import { UserProvider } from './contexts/UserContext'
 import { RoutesMain } from './routes'
 import Global from './styles/global'
+import {PhoneContactContext, PhoneContactProvider} from "./contexts/PhoneContactContext";
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
       <Global />
       <UserProvider>
         <ContactProvider>
-          <RoutesMain />
+          <PhoneContactProvider>
+            <RoutesMain />
+          </PhoneContactProvider>
         </ContactProvider>
       </UserProvider>
       <ToastContainer position='top-center' />
