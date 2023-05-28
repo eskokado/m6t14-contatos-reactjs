@@ -12,7 +12,7 @@ import {Button} from "../../../../../../../styles/buttons";
 
 export const FormPhoneContactModalContent = () => {
   const {
-    // onCreateContact,
+    onCreatePhoneContact,
     setShowPhoneContactModal,
     phoneContact,
     phonesContact,
@@ -27,7 +27,7 @@ export const FormPhoneContactModalContent = () => {
       .required('Nome obrigatório')
       .min(3, 'O nome precisa ter pelo 3 caracteres.')
       .max(200, 'O nome pode ter no máximo 200 caracteres.'),
-    phone: yup
+    number: yup
       .string()
       .required('Telefone é obrigatório')
       .min(8, 'O telefone precisa ter pelo 8 caracteres.')
@@ -40,11 +40,11 @@ export const FormPhoneContactModalContent = () => {
         .required('Nome obrigatório')
         .min(3, 'O nome precisa ter pelo 3 caracteres.')
         .max(200, 'O nome pode ter no máximo 200 caracteres.'),
-    phone: yup
+    number: yup
       .string()
-      .required('Telefone é obrigatório')
-      .min(8, 'O telefone precisa ter pelo 8 caracteres.')
-      .max(15, 'O telefone pode ter no máximo 15 caracteres.'),
+      .required('Número é obrigatório')
+      .min(8, 'O número precisa ter pelo 8 caracteres.')
+      .max(15, 'O número pode ter no máximo 15 caracteres.'),
   })
 
   const defaultValues = {
@@ -65,7 +65,7 @@ export const FormPhoneContactModalContent = () => {
     // if (phoneContact) {
     //   onUpdatePhoneContact(data)
     // } else {
-    //   onCreatePhoneContact(data)
+      onCreatePhoneContact(data)
     // }
     setShowPhoneContactModal(false)
   }
@@ -88,10 +88,10 @@ export const FormPhoneContactModalContent = () => {
             register={register}
           />
           <GroupInput
-            label='Telefone'
-            placeholder='Digite aqui o telefone'
-            helperMessage={errors.phone?.message && errors.phone.message}
-            field='phone'
+            label='Número'
+            placeholder='Digite aqui o número'
+            helperMessage={errors.number?.message && errors.number.message}
+            field='number'
             defaultValues={defaultValues}
             register={register}
           />
