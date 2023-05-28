@@ -11,6 +11,8 @@ import {PhoneContactContext} from "../../../../../contexts/PhoneContactContext";
 import { MainTopPhoneContact} from ".././MainTopPhoneContact";
 import {Container} from "../../../../../styles/container";
 import {MainContentPhoneContact} from "../MainContentPhoneContact";
+import {StyledModalWrapper} from "../styles";
+import {FormPhoneContactModal} from "./FormPhoneContactModal";
 
 export const FormContactModalContent = () => {
   const {
@@ -21,7 +23,7 @@ export const FormContactModalContent = () => {
     onRemoveContact
   } = useContext(ContactContext)
 
-  const { phonesContact, setPhonesContact } = useContext(PhoneContactContext)
+  const { phonesContact, setPhonesContact, showPhoneContactModal } = useContext(PhoneContactContext)
 
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/
@@ -147,6 +149,11 @@ export const FormContactModalContent = () => {
           <MainContentPhoneContact />
         </Container>
       </StyledListSection>
+      {showPhoneContactModal && (
+        <StyledModalWrapper>
+          <FormPhoneContactModal></FormPhoneContactModal>
+        </StyledModalWrapper>
+      )}
     </>
   )
 }
