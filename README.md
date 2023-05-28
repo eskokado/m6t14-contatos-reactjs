@@ -35,4 +35,4 @@ Você também poderá ver quaisquer erros de lint no console.
 
 ## Caso de falha
 
-Em caso de falhas, utilize a URL /logout para limpar o cache e o local storage.
+Em caso de falhas, utilize a URL /logout para limpar o cache e o localstorage.
