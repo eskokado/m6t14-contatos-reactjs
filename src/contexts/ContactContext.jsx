@@ -29,6 +29,8 @@ export const ContactProvider = ({ children }) => {
       const dataCreate = { ...data }
       dataCreate.customerId = customerId
       await api.post('/contacts', dataCreate, config)
+      const notify = () => toast.success('Contato cadastrado com sucesso. Edit o contato e adicione os telefones')
+      notify()
     } catch (error) {
       const notify = () => toast.error('Ocorreu um erro ao cadastrar')
       notify()

@@ -33,6 +33,8 @@ export const UserProvider = ({ children }) => {
       setLoading(true)
       delete data['confirmPassword']
       await api.post('customers', data)
+      const notify = () => toast.success('Cadastrado com sucesso. Edit o profile e adicione os telefones')
+      notify()
       const registeredSuccess = () => navigate('/login')
       registeredSuccess()
     } catch (error) {
