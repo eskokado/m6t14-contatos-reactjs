@@ -6,9 +6,12 @@ import { StyledModalWrapper } from '../FormContactModal/styles'
 import { MainContent } from '../MainContent'
 import { MainTop } from '../MainTop'
 import { StyledMainHome } from './styles'
+import {FormCustomerModal} from "../FormCustomerModal";
+import {CustomerContext} from "../../../../contexts/CustomerContext";
 
 export const MainHome = () => {
   const { showContactModal } = useContext(ContactContext)
+  const { showCustomerModal } = useContext(CustomerContext)
   return (
     <>
       <StyledMainHome>
@@ -22,6 +25,11 @@ export const MainHome = () => {
       {showContactModal && (
         <StyledModalWrapper>
           <FormContactModal></FormContactModal>
+        </StyledModalWrapper>
+      )}
+      {showCustomerModal && (
+        <StyledModalWrapper>
+          <FormCustomerModal></FormCustomerModal>
         </StyledModalWrapper>
       )}
     </>
