@@ -143,13 +143,13 @@ export const FormContactModalContent = () => {
           )}
         </StyledFormContactModalContent>
       </StyledFormSection>
-      <StyledListSection>
+      {contact?.id && (<StyledListSection>
         <Container>
           <MainTopPhoneContact />
           <MainContentPhoneContact />
         </Container>
-      </StyledListSection>
-      {showPhoneContactModal && (
+      </StyledListSection>)}
+      {contact?.id && showPhoneContactModal && (
         <StyledModalWrapper>
           <FormPhoneContactModal></FormPhoneContactModal>
         </StyledModalWrapper>
