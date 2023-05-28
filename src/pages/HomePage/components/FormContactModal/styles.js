@@ -7,7 +7,7 @@ export const StyledFormContactModal = styled.section`
   justify-content: center;
   align-items: center;
   background-color: var(--color-grey-2);
-  width: 50%;
+  width: 80%;
   border-radius: 0.5rem;
   @media (max-width: 400px) {
     width: 100%;
