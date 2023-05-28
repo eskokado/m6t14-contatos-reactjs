@@ -73,6 +73,8 @@ export const ContactProvider = ({ children }) => {
     setLoading(true)
     try {
       await api.delete(`/contacts/${id}`, config)
+      const notify = () => toast.success('Contato excluido com sucesso.')
+      notify()
     } catch (error) {
       const notify = () => toast.error('Ocorreu um erro ao deletar')
       notify()
