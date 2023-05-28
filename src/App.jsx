@@ -4,6 +4,7 @@ import { CustomerProvider } from './contexts/CustomerContext'
 import { RoutesMain } from './routes'
 import Global from './styles/global'
 import {PhoneContactContext, PhoneContactProvider} from "./contexts/PhoneContactContext";
+import {PhoneCustomerContext, PhoneCustomerProvider} from "./contexts/PhoneCustomerContext";
 
 function App() {
   return (
@@ -11,9 +12,11 @@ function App() {
       <Global />
       <CustomerProvider>
         <ContactProvider>
-          <PhoneContactProvider>
-            <RoutesMain />
-          </PhoneContactProvider>
+          <PhoneCustomerProvider>
+            <PhoneContactProvider>
+              <RoutesMain />
+            </PhoneContactProvider>
+          </PhoneCustomerProvider>
         </ContactProvider>
       </CustomerProvider>
       <ToastContainer position='top-center' />
