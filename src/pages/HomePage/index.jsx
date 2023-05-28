@@ -9,7 +9,7 @@ import { MainHome } from './components/MainHome'
 import { StyledHomePage } from './styles'
 
 export const HomePage = () => {
-  const { onLogout, onCustomerPrint, getCustomer } = useContext(CustomerContext)
+  const { onLogout, onCustomerPrint, getCustomer, onCustomerEdit } = useContext(CustomerContext)
 
   useEffect(() => {
     getCustomer()
@@ -22,8 +22,10 @@ export const HomePage = () => {
           <Navbar
             labelButton='Sair'
             onClick={onLogout}
-            labelPrint='Imprimir Customer'
+            labelPrint='Imprimir'
             onPrint={onCustomerPrint}
+            labelProfile='Profile'
+            onProfile={onCustomerEdit}
           />
         </Container>
       </section>

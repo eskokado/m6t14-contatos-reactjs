@@ -3,7 +3,7 @@ import logo from '../../assets/Logo.png'
 import { Logo } from '../../styles/logo'
 import { StyledNavbar } from './styles'
 
-export const Navbar = ({ labelButton, labelPrint, to, onClick, onPrint }) => {
+export const Navbar = ({ labelButton, labelPrint, labelProfile, to, onClick, onPrint, onProfile }) => {
   return (
     <StyledNavbar>
       <Logo src={logo} />
@@ -16,6 +16,16 @@ export const Navbar = ({ labelButton, labelPrint, to, onClick, onPrint }) => {
         >
           {labelButton}
         </ButtonLink>
+      )}
+      {onProfile && (
+        <Button
+          buttoncolor='grey'
+          buttonstyle='small'
+          fontSize='min'
+          onClick={onProfile}
+        >
+          {labelProfile}
+        </Button>
       )}
       {onPrint && (
         <Button
