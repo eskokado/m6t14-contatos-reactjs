@@ -9,7 +9,7 @@ export const CardListContact = () => {
   return (
     <StyledCardListContact>
       {contacts.length > 0 ? (
-        contacts.map((contact) => <CardContact key={contact.id} contact={contact} />)
+        contacts.map((contact) => <CardContact key={contact.id} cardContact={contact} />)
       ) : (
         <EmptyContact />
       )}
