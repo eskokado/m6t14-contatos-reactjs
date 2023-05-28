@@ -87,7 +87,6 @@ export const CustomerProvider = ({ children }) => {
   const onCustomerEdit = () => {
     setShowCustomerModal(true)
     getCustomer()
-    console.log('onCustomerEdit')
   }
 
   const getCustomer = async () => {
