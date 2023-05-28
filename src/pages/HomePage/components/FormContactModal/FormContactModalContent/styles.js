@@ -15,6 +15,7 @@ export const StyledFormContactModalContent = styled.form`
 
 export const StyledFormSection = styled.section`
   width: 90%;
+  margin-bottom: 1.5rem;
 `
 
 export const StyledListSection = styled.section`
