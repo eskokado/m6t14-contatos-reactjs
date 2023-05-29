@@ -14,17 +14,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import 'react-toastify/dist/ReactToastify.css'
 import { useContext, useEffect } from 'react'
 import { CustomerContext } from '../../contexts/CustomerContext'
-import {useNavigate} from "react-router-dom";
 
 
 export const LoginPage = () => {
   const { loading, onLogin, autoLogin } = useContext(CustomerContext)
-  const navigate = useNavigate()
 
   useEffect(() => {
     autoLogin();
   }, []);
-
 
   const passwordRegExp =
     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/

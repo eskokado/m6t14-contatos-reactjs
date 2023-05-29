@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactToPrint from 'react-to-print'
-import { CustomerToPrint } from './components/CustomerToPrint'
+import { CustomerToPrint } from '../../components/CustomerToPrint'
 import { Link } from 'react-router-dom'
 import {PrintAndHomeContainer, StyledButton} from "./styles";
 
