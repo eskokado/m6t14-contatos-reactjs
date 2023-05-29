@@ -20,6 +20,8 @@ Este projeto é um exemplo de como React e algumas de suas bibliotecas complemen
 
 [Github: ](https://github.com/eskokado/m6t14-contatos-api-nestjs) Convidamos você a baixar o backend, criado utilizando NestJS, a partir do nosso repositório no GitHub. No repositório, fornecemos um guia detalhado, passo a passo, que o auxiliará na configuração e execução do sistema em seu ambiente de desenvolvimento local.
 
+## Copie .env_example para .env
+
 ## Scripts Disponíveis
 
 No diretório do projeto, você pode executar:
