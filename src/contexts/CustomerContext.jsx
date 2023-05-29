@@ -12,6 +12,38 @@ export const CustomerProvider = ({ children }) => {
   const [showCustomerModal, setShowCustomerModal] = useState(false)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    autoLogin();
+  }, []);
+
+
+  const autoLogin = async () => {
+    setLoading(true);
+    const token = localStorage.getItem("@TOKEN");
+    const customerId = localStorage.getItem("@CUSTOMERID");
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    try {
+      const { data } = await api.get(`/customers/${customerId}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      console.log('passou aqui')
+      setCustomer(data);
+      navigate("/home");
+    } catch (error) {
+      localStorage.removeItem("@TOKEN");
+      localStorage.removeItem("@CUSTOMERID");
+      console.log('ocorreu erro')
+      navigate("/login");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const onLogin = async (data) => {
     try {
       setLoading(true)
@@ -99,10 +131,12 @@ export const CustomerProvider = ({ children }) => {
       }
       const response = await api.get(`customers/${customerId}`, config)
       setCustomer(response.data)
+      return true
     } catch (error) {
       const notify = () => toast.error('Erro ao localizar o cliente')
       notify()
       setCustomer({})
+      return false
     } finally {
       setLoading(false)
     }
@@ -123,7 +157,7 @@ export const CustomerProvider = ({ children }) => {
         showCustomerModal,
         setShowCustomerModal,
         onUpdateCustomer,
-        // autoLogin
+        autoLogin,
       }}
     >
       {children}

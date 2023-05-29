@@ -7,15 +7,14 @@ import { CustomerContext } from '../../contexts/CustomerContext'
 import { Container } from '../../styles/container'
 import { MainHome } from './components/MainHome'
 import { StyledHomePage } from './styles'
+import {Navigate} from "react-router-dom";
 
 export const HomePage = () => {
-  const { onLogout, onCustomerPrint, getCustomer, onCustomerEdit } = useContext(CustomerContext)
+  const { onLogout, onCustomerPrint, getCustomer, onCustomerEdit, loading, customer } = useContext(CustomerContext)
 
-  useEffect(() => {
-    getCustomer()
-  }, [])
+  if (loading) return null;
 
-  return (
+  return customer ? (
     <StyledHomePage>
       <section>
         <Container>
@@ -36,5 +35,7 @@ export const HomePage = () => {
       </section>
       <MainHome />
     </StyledHomePage>
+  ) : (
+    <Navigate to='/'/>
   )
 }
